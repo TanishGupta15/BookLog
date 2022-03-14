@@ -4,7 +4,7 @@ import "./css/navbar.css";
 export const Navbar = () => {
   // For removing underline below navLinks
   const LinkStyle = {
-    textDecoration: "none"
+    textDecoration: "none",
   };
 
   return (
@@ -45,6 +45,14 @@ export const Navbar = () => {
       <div className="buttons">
         <button className="login-btn">Log in</button>
         <button className="signup-btn">Sign up</button>
+        <div className="toggle-button">
+        <input type="checkbox" class="checkbox" id="chk" />
+          <label class="label" for="chk">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <div class="ball"></div>
+          </label>
+        </div>
       </div>
     </nav>
   );
