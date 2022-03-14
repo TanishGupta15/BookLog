@@ -2,7 +2,7 @@ const USER = [
     {
         id: 1,
         name: "Ed Sheren",
-        image: '/assets/images/1.png',
+        image: '../assets/images/1.png',
     },
     {
         id: 2,
