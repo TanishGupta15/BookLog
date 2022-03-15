@@ -1,18 +1,20 @@
+import IMAGE1 from "../assets/images/1.png";
+
 const USER = [
     {
         id: 1,
         name: "Ed Sheren",
-        image: '../assets/images/1.png',
+        image: IMAGE1,
     },
     {
         id: 2,
         name: "Jack Sparow",
-        image: '/assets/images/2.png',
+        image: IMAGE1,
     },
     {
         id: 3,
         name: "Rose",
-        image: '/assets/images/3.png',
+        image: IMAGE1,
     }
 ]
 export default USER
