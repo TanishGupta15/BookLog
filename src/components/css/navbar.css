@@ -6,6 +6,17 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+:root{
+    --main-color: black;
+    --second-color: white;
+}
+
+.active-dark{
+    background-color: #27292D;
+    --main-color: white;
+    --second-color: #27292D;
+}
+
 nav{
     display: flex;
     width: 100%;
@@ -23,6 +34,7 @@ nav .logo-section{
     align-items: center;
     font-weight: 700;
     font-size: 1vw;
+    color: var(--main-color);
 }
 
 
@@ -58,7 +70,7 @@ nav .links-section li{
     font-size: 1vw;
 }
 nav .links-section li a{
-    color: black;
+    color: var(--main-color);
     font-weight: 600;
 }
 nav .links-section Link{
@@ -90,7 +102,7 @@ nav .buttons .login-btn{
 }
 
 nav .buttons .signup-btn{
-    background: white;
+    background: var(--second-color);
     color: #FFAB24;
     border: none;
     font-size: 1vw;
@@ -107,36 +119,6 @@ nav .buttons .signup-btn{
     -o-border-radius: 5px;
 }
 
-.label {
-	background-color: #111;
-	border-radius: 50px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-    padding: 5%;
-	height: 26px;
-	width: 50px;
-	transform: scale(1.5);
-}
-
-.label .ball {
-	background-color: #fff;
-	border-radius: 50%;
-	position: absolute;
-	top: 4px;
-	left: 2px;
-	height: 22px;
-	width: 22px;
-	transform: translateX(0px);
-	transition: transform 0.2s linear;
-}
-
-.checkbox:checked + .label .ball {
-	transform: translateX(29px);
-}
-
-
 .fa-moon {
 	color: #f1c40f;
 }
@@ -148,3 +130,45 @@ nav .buttons .signup-btn{
 .checkbox{
     display: none;
 }
+
+
+.label {
+    background-color: var(--main-color);
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5%;
+    height: 20px;
+    width: 46px;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+   }
+   
+   .label .ball {
+    background-color: var(--second-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    height: 18px;
+    width: 18px;
+    transform: translateX(0px);
+    transition: transform 0.2s linear;
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+   }
+   
+   .checkbox:checked + .label .ball {
+    transform: translateX(28px);
+    -webkit-transform: translateX(28px);
+    -moz-transform: translateX(28px);
+    -ms-transform: translateX(28px);
+    -o-transform: translateX(28px);
+   }

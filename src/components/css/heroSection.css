@@ -5,7 +5,16 @@
   padding: 0;
   font-family: "Open Sans", sans-serif;
 }
+:root{
+  --main-color: black;
+  --second-color: white;
+}
 
+.active-dark{
+  background-color: #27292D;
+  --main-color: white;
+  --second-color: #27292D;
+}
 .hero-section {
   /* background-color: red; */
   height: 80vh;
@@ -23,6 +32,7 @@
 .text-section-main-heading {
   font-size: 5vw;
   font-weight: 500;
+  color: var(--main-color);
 }
 
 .text-section-main-heading span {
@@ -31,10 +41,11 @@
 }
 .text-section-description {
   font-weight: 500;
+  color: var(--main-color);
 }
 .text-section button {
-  width: 33%;
-  height: 13%;
+  width: 200px;
+  height: 60px;
   font-size: 1.2vw;
   margin-top: 5%;
   background: #ffc465;
@@ -59,17 +70,17 @@
     align-items: flex-end;
 }
 .books img{
-    width: 25%;
-    height: 73%;
+    width: 140px;
+    height: 220px;
     margin: 0 4%;
     filter: drop-shadow(10px 50px 35px rgba(0, 0, 0, 0.23));
 }
 #first-book{
-    margin-left: 0% !important;
+    margin-left: 1% !important;
 }
 #tilted-book{
-    width: 33%;
-    height: 76%;
+    width: 190px;
+    height: 230px;
     margin-right: 1%;
 }
 .book-shelf {
