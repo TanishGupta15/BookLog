@@ -10,7 +10,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     
-    if (JSON.parse(localStorage.getItem("darkMode")) == true){
+    if (JSON.parse(localStorage.getItem("darkMode")) === true){
       document.body.classList.add('active-dark');
       document.getElementById("chk").checked = true;
     }
