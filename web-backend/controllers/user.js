@@ -13,7 +13,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
     res.sendStatus(200);
 });
 
-//add welcome mailer
+//add welcome mailer, getUserProfile
 
 async function addUser(res, user) {
 
