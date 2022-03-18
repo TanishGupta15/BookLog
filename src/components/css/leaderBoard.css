@@ -6,17 +6,6 @@
   justify-content: center;
 }
 
-:root{
-  --main-color: black;
-  --second-color: white;
-}
-
-.active-dark{
-  background-color: #27292D;
-  --main-color: white;
-  --second-color: #27292D;
-}
-
 .heading{
   font-weight: 100;
   margin: 60px 0px;
