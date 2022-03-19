@@ -3,6 +3,7 @@ import LeaderBoard from "./LeaderBoard";
 import HeroSection from "./HeroSection";
 import ChooseUs from "./ChooseUs";
 import Footer from "./Footer";
+import BrowseBooks from "./BrowseBooksSection";
 
 import USER from '../shared/userData'
 
@@ -14,6 +15,7 @@ function Home() {
       <HeroSection />
       <LeaderBoard USER={USER}/>
       <ChooseUs/>
+      <BrowseBooks/>
       <Footer/>
     </div>
   )
