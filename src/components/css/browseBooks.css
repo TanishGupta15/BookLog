@@ -3,6 +3,7 @@
     /* background: red; */
     display: flex;
     flex-direction: column;
+    margin-top: 200px;
 }
 
 .heading-and-search{
@@ -19,6 +20,7 @@
 .headings p{
     font-size: 65px;
     font-weight: 600;
+    color: var(--main-color);
 }
 
 .headings .underline{
@@ -69,6 +71,7 @@
 .genres p{
     cursor: pointer;
     font-weight: 600;
+    color: var(--main-color);
 }
 
 .genres p:hover{

@@ -14,8 +14,8 @@ function Home() {
       <Navbar />
       <HeroSection />
       <LeaderBoard USER={USER}/>
-      <ChooseUs/>
       <BrowseBooks/>
+      <ChooseUs/>
       <Footer/>
     </div>
   )

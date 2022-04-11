@@ -5,6 +5,7 @@ import {
   // useNavigate
 } from "react-router-dom";
 import Home from "./HomeComponent";
+import GenresPage from "./GenresPage";
 
 
 function MainComponent() {
@@ -13,6 +14,7 @@ function MainComponent() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/genres/:genre" element={<GenresPage />} />
         </Routes>
       </Router>
     </div>
