@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(favicon(`${__dirname}/favicon.ico`));
+// app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
 
 app.use(passport.initialize());
