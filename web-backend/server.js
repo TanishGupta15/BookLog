@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
   const corsOption = {
     origin: ['https://website_name.com',
               /^http:\/\/localhost:[0-9]*$/,
-            ] //Fill the website name here
+            ], //Fill the website name here
     methods: 'GET,POST,DELETE',
     credentials: true,
     exposedHeaders: ['x-auth-token'],
@@ -64,13 +64,13 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.use(passport.initialize());
-app.use(
-  cookieSession({
-    secret: secrets.sessionSecret,
-    name: 'BookLog',
-    maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
-  }),
-);
+// app.use(
+//   cookieSession({
+//     secret: secrets.sessionSecret,
+//     name: 'BookLog',
+//     maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
+//   }),
+// );
 app.use(passport.session());
 
 const apiRouter = express.Router();
