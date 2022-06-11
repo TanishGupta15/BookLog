@@ -49,7 +49,9 @@ app.use(
 
 if (process.env.NODE_ENV === 'production') {
   const corsOption = {
-    origin: 'https://website_name.com', //Fill the website name here
+    origin: ['https://website_name.com',
+              /^http:\/\/localhost:[0-9]*$/,
+            ] //Fill the website name here
     methods: 'GET,POST,DELETE',
     credentials: true,
     exposedHeaders: ['x-auth-token'],
@@ -75,6 +77,7 @@ const apiRouter = express.Router();
 apiRouter.use('/user', userRouter);
 
 app.use('/', apiRouter);
+apiRouter.use('/user', userRouter);
 
 app.listen(app.get('port'), () => {
   console.log('Started listening on port', app.get('port'));
