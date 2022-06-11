@@ -26,5 +26,6 @@ if (process.env.AWSAccessKeyId === undefined) {
     AWSAcccessKeyId: myAWSAccessKeyId,
     AWSSecretKey: myAWSSecretKey,
     awsRegion,
-    tableName
+    tableName,
+    dynamoDB
   };

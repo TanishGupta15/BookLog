@@ -6,7 +6,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-
+const session = require('express-session');
 //add favicon.ico in this directory
 //add env file, tableName, session_secret is just a random integer
 
@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
-
+app.use(session({ secret: 'SECRET' }));
 app.use(passport.initialize());
 // app.use(
 //   cookieSession({

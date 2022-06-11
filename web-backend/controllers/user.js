@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
-const secret = require('../secrets');
+const secrets = require('../secrets');
 const utilsError = require('../utils/error');
 
 const router = express.Router({ mergeParams: true });
@@ -35,7 +35,7 @@ async function addUser(res, user) {
       //   `${user.first_name} ${user.last_name}`,
       // );
   
-      return res.json(getUserProfile(user));
+      return utilsError.error(res, 200, 'User added successfully');
     } catch (err) {
       if (err.statusCode >= 500) {
         return utilsError.error(res, 500, 'Please try again');
@@ -72,9 +72,9 @@ async function addUser(res, user) {
     try {
       data = await secrets.dynamoDB.query(queryParams).promise();
     } catch (err) {
+      console.log(err);
       return utilsError.error(res, 500, 'Internal Server Error');
     }
-  
     if (data.Items.length !== 0) {
       return utilsError.error(
         res,
@@ -125,3 +125,4 @@ async function addUser(res, user) {
 
   });
   
+  module.exports = router;
