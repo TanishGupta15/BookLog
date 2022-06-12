@@ -2,33 +2,29 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import "./css/navbar.css";
 
-export const Navbar = () => {
+export const Navbar = (props) => {
   // For removing underline below navLinks
   const LinkStyle = {
     textDecoration: "none",
   };
 
   useEffect(() => {
-    
-    if (JSON.parse(localStorage.getItem("darkMode")) === true){
-      document.body.classList.add('active-dark');
+    if (JSON.parse(localStorage.getItem("darkMode")) === true) {
+      document.body.classList.add("active-dark");
       document.getElementById("chk").checked = true;
     }
-
-  }, [])
-  
-
+  }, []);
 
   function toggleButton() {
-    document.body.classList.toggle('active-dark');
-    if(document.body.classList.contains('active-dark')){
+    document.body.classList.toggle("active-dark");
+    if (document.body.classList.contains("active-dark")) {
       localStorage.setItem("darkMode", true);
-    } else{
+    } else {
       localStorage.setItem("darkMode", false);
     }
   }
-  
-  
+
+  const signupButtonStyle = () => {};
 
   return (
     <nav>
@@ -67,15 +63,26 @@ export const Navbar = () => {
       {/* Login Buttons */}
       <div className="buttons">
         <button className="login-btn">Log in</button>
-        <button className="signup-btn">Sign up</button>
-        <div className="toggle-button">
-        <input type="checkbox" class="checkbox" id="chk" onClick={toggleButton}/>
-          <label class="label" for="chk">
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-sun"></i>
-            <div id="label-ball" class="ball"></div>
-          </label>
-        </div>
+        <Link to="/register" className="signup-btn">
+          Sign up
+        </Link>
+        {props.themeChanger ? (
+          <div className="toggle-button">
+            <input
+              type="checkbox"
+              class="checkbox"
+              id="chk"
+              onClick={toggleButton}
+            />
+            <label class="label" for="chk">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+              <div id="label-ball" class="ball"></div>
+            </label>
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </nav>
   );

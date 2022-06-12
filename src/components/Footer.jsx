@@ -2,7 +2,7 @@ import React from "react";
 import "./css/footer.css";
 import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { AiOutlineInstagram, AiOutlineTwitter } from "react-icons/ai";
-import {IoMdMail} from "react-icons/io";
+import { IoMdMail } from "react-icons/io";
 
 function Footer() {
   return (
@@ -44,18 +44,18 @@ function Footer() {
           </div>
         </div>
         <div className="newsletter-section">
-            <div className="newsletter-heading">
-                <IoMdMail className="icon"  />
-                <p>Subscribe to our News Letter</p>
-            </div>
+          <div className="newsletter-heading">
+            <IoMdMail className="icon" />
+            <p>Subscribe to our News Letter</p>
+          </div>
 
-            <div className="input-box">
-                <input type="email" placeholder="email"/>
-            </div>
+          <div className="input-box">
+            <input type="email" placeholder="email" />
+          </div>
 
-            <div className="button">
-                <button>Submit</button>
-            </div>
+          <div className="button">
+            <button>Submit</button>
+          </div>
         </div>
       </div>
     </div>

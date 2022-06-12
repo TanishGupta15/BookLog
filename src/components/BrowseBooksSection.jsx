@@ -7,6 +7,7 @@ function BrowseBooks() {
   const linkStyle = {
     color: "black",
     textDecoration: "none",
+    width: "30%",
   };
   return (
     <div className="browse-books">

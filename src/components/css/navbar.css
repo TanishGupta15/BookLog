@@ -97,12 +97,16 @@ nav .buttons .login-btn{
     border-radius: 5px;
     cursor: pointer;
     width: 37%;
-    height: 60%;
+    height: 57%;
     font-family: 'Poppins', sans-serif;
 }
 
 nav .buttons .signup-btn{
-    background: var(--second-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background: transparent;
     color: #FFAB24;
     border: none;
     font-size: 1vw;
@@ -110,7 +114,7 @@ nav .buttons .signup-btn{
     border-radius: 5px;
     cursor: pointer;
     width: 37%;
-    height: 60%;
+    height: 50%;
     border: 3px solid #FFAB24;
     font-family: 'Poppins', sans-serif;
     -webkit-border-radius: 5px;
