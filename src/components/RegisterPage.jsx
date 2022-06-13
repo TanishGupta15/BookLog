@@ -68,7 +68,7 @@ const Register = () => {
           </div>
           <div className="rows">
             <input
-              type="text"
+              type="password"
               className="input large-input"
               placeholder="Password"
               value={password}

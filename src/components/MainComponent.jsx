@@ -7,6 +7,7 @@ import {
 import Home from "./HomeComponent";
 import GenresPage from "./GenresPage";
 import Register from "./RegisterPage";
+import Login from "./LoginPage";
 
 function MainComponent() {
   return (
@@ -15,6 +16,7 @@ function MainComponent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/genres/:genre" element={<GenresPage />} />
         </Routes>
       </Router>

@@ -62,7 +62,9 @@ export const Navbar = (props) => {
 
       {/* Login Buttons */}
       <div className="buttons">
-        <button className="login-btn">Log in</button>
+        <Link className="login-btn" to="/login">
+          Login
+        </Link>
         <Link to="/register" className="signup-btn">
           Sign up
         </Link>
