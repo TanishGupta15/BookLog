@@ -1,91 +1,116 @@
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import "./css/navbar.css";
+// import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+// import "./css/navbar.css";
+
+import { BsSunFill } from "react-icons/bs";
+import { SiBookstack } from "react-icons/si";
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+
+import {
+  Box, Flex, HStack, Button, Stack,
+  useDisclosure, Text, Spacer, IconButton
+} from '@chakra-ui/react'
+import { useColorMode } from "@chakra-ui/react";
+import { MoonIcon } from '@chakra-ui/icons'
 
 export const Navbar = (props) => {
-  // For removing underline below navLinks
-  const LinkStyle = {
-    textDecoration: "none",
-  };
 
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem("darkMode")) === true) {
-      document.body.classList.add("active-dark");
-      document.getElementById("chk").checked = true;
-    }
-  }, []);
+  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function toggleButton() {
-    document.body.classList.toggle("active-dark");
-    if (document.body.classList.contains("active-dark")) {
-      localStorage.setItem("darkMode", true);
-    } else {
-      localStorage.setItem("darkMode", false);
+
+  const NavLinkStyle = ({ isActive }) => {
+    return {
+      color: isActive ? '#FFAB24' : '--main-text-color',
+      fontWeight: isActive ? 'bold' : 600,
+      borderBottom: isActive ? '3px solid #FFAB24' : 'none',
     }
   }
-
-  const signupButtonStyle = () => {};
+  const DrawerStyle = {
+      fontWeight: 600,
+      // borderBottom:'3px solid #FFAB24',
+  }
 
   return (
-    <nav>
-      {/* Logo and Website Name */}
-      <div className="logo-section">
-        <div className="logo-img">{/* <img src="#" alt="" /> */}</div>
-        <p>Booklog</p>
-      </div>
-
-      {/* Links section for navigation */}
-      <div className="links-section">
-        <ul>
-          <li className="active">
-            <Link to="/" style={LinkStyle}>
-              Home
-            </Link>
-          </li>
-          <li className="">
-            <Link to="/leaderboards" style={LinkStyle}>
-              LeaderBoards
-            </Link>
-          </li>
-          <li className="">
-            <Link to="/blogs" style={LinkStyle}>
-              Blogs
-            </Link>
-          </li>
-          <li className="">
-            <Link to="/another" style={LinkStyle}>
-              Another
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      {/* Login Buttons */}
-      <div className="buttons">
-        <Link className="login-btn" to="/login">
-          Login
+    <Box px="5%" py={5}>
+      <Flex h={16} align={'center'}>
+        <Link to='/'>
+          <HStack alignItems={'center'}>
+            <SiBookstack size={40} />
+            <Text fontSize={'xl'} fontWeight={700}>Booklog</Text>
+          </HStack>
         </Link>
-        <Link to="/register" className="signup-btn">
-          Sign up
-        </Link>
-        {props.themeChanger ? (
-          <div className="toggle-button">
-            <input
-              type="checkbox"
-              class="checkbox"
-              id="chk"
-              onClick={toggleButton}
-            />
-            <label class="label" for="chk">
-              <i class="fas fa-moon"></i>
-              <i class="fas fa-sun"></i>
-              <div id="label-ball" class="ball"></div>
-            </label>
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
-    </nav>
+        <Spacer />
+
+
+        <IconButton
+          size={'md'}
+          variant={'outline'}
+          icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+          aria-label={'Open Menu'}
+          display={{ lg: 'none' }}
+          onClick={isOpen ? onClose : onOpen}
+        />
+
+
+
+        <HStack align={'center'} justify={'space-between'} spacing='5'
+          display={{ base: 'none', lg: 'flex' }}>
+          <NavLink style={NavLinkStyle} to="/">
+            Home
+          </NavLink>
+          <NavLink style={NavLinkStyle} to="/leaderboards">
+            LeaderBoards
+          </NavLink>
+          <NavLink style={NavLinkStyle} to="/blogs">
+            Blogs
+          </NavLink>
+          <NavLink style={NavLinkStyle} to="/another">
+            Another
+          </NavLink>
+        </HStack>
+
+        <HStack alignItems={'center'} justifyContent={'space-between'} spacing='3' ml={10}
+          display={{ base: 'none', lg: 'flex' }}>
+          {/* Login and Signup Buttons */}
+          <Link to="/login">
+            <Button >
+              Login
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button variant='outline'>
+              Sign Up
+            </Button>
+          </Link>
+          <Button onClick={() => toggleColorMode()}>
+            {colorMode === 'dark' ? <BsSunFill /> : <MoonIcon />}
+          </Button>
+        </HStack>
+      </Flex>
+
+      {isOpen ? (
+        <Box pb={4} display={{ lg: 'none' }} bg='#2a2d32' borderBottom={'2px solid #ffab24'}>
+            <Stack align={'center'} spacing={4} fontSize="xl" >
+              <Link as={NavLink} to={'/'}
+                style={DrawerStyle}>
+                Home
+              </Link>
+              <Link as={NavLink} to={'/blogs'}
+                style={DrawerStyle}>
+                Blog
+              </Link>
+              <Link as={NavLink} to={'/leaderboard'}
+                style={DrawerStyle}>
+                Leaderboard
+              </Link>
+              <Link as={NavLink} to={'/another'}
+                style={DrawerStyle}>
+                Another
+              </Link>
+            </Stack>
+        </Box>
+      ) : null}
+    </Box>
   );
 };
