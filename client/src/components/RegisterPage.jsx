@@ -25,13 +25,13 @@ const Register = () => {
       <img src={IMG} alt="" className="imgs" />
       <Navbar themeChanger={false} />
       <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item">
+        <ul className="breadcrumb">
+          <li className="breadcrumb-item">
             <Link to="/" style={linkStyle}>
               Home
             </Link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
+          <li className="breadcrumb-item active" aria-current="page">
             / Register
           </li>
         </ul>

@@ -1,4 +1,4 @@
-import React from "react";
+
 import "./css/topBooks.css";
 
 function TopBooks() {
