@@ -15,6 +15,11 @@ const USER = [
         id: 3,
         name: "Rose",
         image: IMAGE1,
+    },
+    {
+        id: 4,
+        name: "Red",
+        image: IMAGE1,
     }
 ]
 export default USER
