@@ -1,3 +1,11 @@
+# Running the project 
+
+In the project directory, open 2 terminals.
+
+Run ./script1.sh in one terminal and ./script2.sh in another
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

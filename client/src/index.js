@@ -1,8 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './App.js';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import {theme} from './chakraStyles/theme'
+import {theme} from './chakraStyles/theme.js'
 
 
 

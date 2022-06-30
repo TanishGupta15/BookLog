@@ -1,7 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 import { mode } from "@chakra-ui/theme-tools";
-import {Button} from './button'
-import { Input } from './input';
+import {Button} from './button.js'
+import { Input } from './input.js';
 
 export const theme = extendTheme({
   config:{
