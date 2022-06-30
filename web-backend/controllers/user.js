@@ -51,7 +51,7 @@ async function addUser(res, user) {
 router.post('/register', validation.validate(schema.userSchema), async (req, res) => {
 
   const { confirmPassword, ...user } = req.body;
-
+  
   const queryParams = {
     TableName: secrets.tableName,
     KeyConditionExpression: 'email = :value',
@@ -72,11 +72,25 @@ router.post('/register', validation.validate(schema.userSchema), async (req, res
       res,
       400,
       'Member with Email Address already exists',
-    );
+      );
+    }
+    
+    return addUser(res, user);
+    
+  });
+
+  function getUserProfile(user){
+    return {
+      firstName : user.firstName,
+      lastName : user.lastName,
+      email : user.email
+    }
   }
+  
+  
+  router.get('/profile', checkAuthenticated, (req, res) => {
+    res.send(getUserProfile(req.user));
+  });
 
-  return addUser(res, user);
-
-});
 
 module.exports = router;
