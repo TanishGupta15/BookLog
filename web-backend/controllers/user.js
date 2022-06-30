@@ -9,6 +9,7 @@ const utilsError = require('../utils/error');
 
 const schema = require('../validations/userValidation');
 const validation = require('../middlewares/validationMiddleware');
+const { checkAuthenticated } = require('../middlewares/auth');
 
 const router = express.Router({ mergeParams: true });
 
