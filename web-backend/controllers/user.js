@@ -7,122 +7,76 @@ const bcrypt = require('bcrypt');
 const secrets = require('../secrets');
 const utilsError = require('../utils/error');
 
+const schema = require('../validations/userValidation');
+const validation = require('../middlewares/validationMiddleware');
+
 const router = express.Router({ mergeParams: true });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
-    res.sendStatus(200);
+router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local'), (req, res) => {
+  res.sendStatus(200);
 });
 
 //add welcome mailer, getUserProfile
 
 async function addUser(res, user) {
 
-    user.reg_time = new Date().toString();
-  
-    user.password = await bcrypt.hash(user.password, 10);
-  
-    const email = user.email;
-    const addParams = {
-      TableName: secrets.tableName,
-      Item: user,
-      ConditionExpression: 'attribute_not_exists(email)',
-    };
-    try {
-      await secrets.dynamoDB.put(addParams).promise();
-  
-      // await welcomeMailer.sendMail(
-      //   user.email,
-      //   `${user.first_name} ${user.last_name}`,
-      // );
-  
-      return utilsError.error(res, 200, 'User added successfully');
-    } catch (err) {
-      if (err.statusCode >= 500) {
-        return utilsError.error(res, 500, 'Please try again');
-      }
-      console.log(err);
-      return null;
+  user.reg_time = new Date().toString();
+
+  user.password = await bcrypt.hash(user.password, 10);
+
+  const email = user.email;
+  const addParams = {
+    TableName: secrets.tableName,
+    Item: user,
+    ConditionExpression: 'attribute_not_exists(email)',
+  };
+  try {
+    await secrets.dynamoDB.put(addParams).promise();
+
+    // await welcomeMailer.sendMail(
+    //   user.email,
+    //   `${user.first_name} ${user.last_name}`,
+    // );
+
+    return utilsError.error(res, 200, 'User added successfully');
+  } catch (err) {
+    if (err.statusCode >= 500) {
+      return utilsError.error(res, 500, 'Please try again');
     }
+    console.log(err);
+    return null;
   }
-  
-  router.post('/register', async (req, res) => {
-    const user = req.body;
-    if (!user) return utilsError.error(res, 400, 'Invalid Data');
-    if (!user.email) {
-      return utilsError.error(res, 400, 'Please enter Email Address');
-    }
-    user.email = user.email.toLowerCase().trim();
-    if (
-      !user.email.match(
-        /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
-      )
-    ) {
-      return utilsError.error(res, 400, 'Please enter a valid Email Address');
-    }
-  
-    const queryParams = {
-      TableName: secrets.tableName,
-      KeyConditionExpression: 'email = :value',
-      ExpressionAttributeValues: {
-        ':value': user.email,
-      },
-    };
-  
-    let data;
-    try {
-      data = await secrets.dynamoDB.query(queryParams).promise();
-    } catch (err) {
-      console.log(err);
-      return utilsError.error(res, 500, 'Internal Server Error');
-    }
-    if (data.Items.length !== 0) {
-      return utilsError.error(
-        res,
-        400,
-        'Member with Email Address already exists',
-      );
-    }
+}
 
-    if (!user.first_name) {
-      return utilsError.error(res, 400, 'Please enter First Name');
-    }
-  
-    user.first_name = user.first_name
-      .trim()
-      .split(' ')
-      .map((w) => (w ? w[0].toUpperCase() + w.substr(1).toLowerCase() : ''))
-      .join(' ');
-    if (!user.first_name.match(/^[A-Za-z. ]+$/)) {
-      return utilsError.error(res, 400, 'Name cannot contain special characters');
-    }
-  
-    if (user.last_name) {
-      user.last_name = user.last_name
-        .trim()
-        .split(' ')
-        .map((w) => (w ? w[0].toUpperCase() + w.substr(1).toLowerCase() : ''))
-        .join(' ');
-      if (!user.last_name.match(/^[A-Za-z. ]+$/)) {
-        return utilsError.error(
-          res,
-          400,
-          'Name cannot contain special characters',
-        );
-      }
-    } else {
-      user.last_name = '';
-    }
+router.post('/register', validation.validate(schema.userSchema), async (req, res) => {
 
-    if (!user.password || user.password.length < 8) {
-      return utilsError.error(
-        res,
-        400,
-        'Please enter password with minimum 8 characters',
-      );
-    }
+  const { confirmPassword, ...user } = req.body;
 
-    return addUser(res, user);
+  const queryParams = {
+    TableName: secrets.tableName,
+    KeyConditionExpression: 'email = :value',
+    ExpressionAttributeValues: {
+      ':value': user.email,
+    },
+  };
 
-  });
-  
-  module.exports = router;
+  let data;
+  try {
+    data = await secrets.dynamoDB.query(queryParams).promise();
+  } catch (err) {
+    console.log(err);
+    return utilsError.error(res, 500, 'Internal Server Error');
+  }
+  if (data.Items.length !== 0) {
+    return utilsError.error(
+      res,
+      400,
+      'Member with Email Address already exists',
+    );
+  }
+
+  return addUser(res, user);
+
+});
+
+module.exports = router;

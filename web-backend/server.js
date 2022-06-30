@@ -47,17 +47,21 @@ app.use(
   }),
 );
 
-if (process.env.NODE_ENV === 'production') {
-  const corsOption = {
-    origin: ['https://website_name.com',
-              /^http:\/\/localhost:[0-9]*$/,
-            ], //Fill the website name here
-    methods: 'GET,POST,DELETE',
-    credentials: true,
-    exposedHeaders: ['x-auth-token'],
-  };
-  app.use(cors.cors(corsOption));
-}
+// if (process.env.NODE_ENV === 'production') {
+//   const corsOption = {
+//     origin: ['https://website_name.com',
+//               /^http:\/\/localhost:[0-9]*$/,
+//             ], //Fill the website name here
+//     methods: 'GET,POST,DELETE',
+//     credentials: true,
+//     exposedHeaders: ['x-auth-token'],
+//   };
+//   app.use(cors.cors(corsOption));
+// }
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  credentials:true,
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(favicon(`${__dirname}/favicon.ico`));
