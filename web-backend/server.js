@@ -11,6 +11,7 @@ const session = require('express-session');
 //add env file, tableName, session_secret is just a random integer
 
 const userRouter = require('./controllers/user');
+const homepageRouter = require('./controllers/homepage');
 const initializePassport = require('./utils/passport-config');
 const secrets = require('./secrets');
 
@@ -60,7 +61,7 @@ app.use(
 // }
 app.use(cors({
   origin: ['http://localhost:3000'],
-  credentials:true,
+  credentials: true,
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -82,6 +83,9 @@ apiRouter.use('/user', userRouter);
 
 app.use('/', apiRouter);
 apiRouter.use('/user', userRouter);
+
+app.use('/', apiRouter);
+apiRouter.use('/homepage', homepageRouter);
 
 app.listen(app.get('port'), () => {
   console.log('Started listening on port', app.get('port'));

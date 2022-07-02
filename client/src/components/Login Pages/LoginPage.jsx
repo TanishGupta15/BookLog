@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import IMG from '../../assets/images/bg.jpg';
 
-function Register() {
+function Login() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const formik = useFormik({
@@ -157,4 +157,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

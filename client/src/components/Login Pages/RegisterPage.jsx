@@ -39,6 +39,7 @@ function Register() {
       confirmPassword: '',
     },
     onSubmit: (values, actions) => {
+      console.log('submitted');
       axios
         .post('http://localhost:3001/user/register', values)
         .then((res) => {
@@ -47,7 +48,9 @@ function Register() {
           setShow(false);
         })
         .catch((err) => {
+          console.log(err);
           const errors = err.response.data.message;
+          console.log(errors);
           const fields = Object.keys(errors);
           fields.forEach((field) => {
             formik.setFieldError(field, errors[field]);
@@ -80,6 +83,7 @@ function Register() {
             </Text>
           </Stack>
           <Box as="form" mt={10} onSubmit={formik.handleSubmit}>
+            {/* {errors ? <Text color={'red.300'}>{errors}</Text> : null} */}
             <Stack spacing={4}>
               <Flex gap={3}>
                 <FormControl
