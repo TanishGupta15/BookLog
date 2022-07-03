@@ -15,7 +15,7 @@ const router = express.Router({ mergeParams: true });
 
 router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', { failureMessage: false }),
   (req, res) => {
-    res.send('User logged in successfully');
+    res.status(200).send('User logged in successfully');
   });
 
 //add welcome mailer, getUserProfile
