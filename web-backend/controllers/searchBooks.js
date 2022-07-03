@@ -4,21 +4,15 @@ const utilsError = require('../utils/error');
 
 const router = express.Router();
 
-
-const extractThumbnail = ({ imageLinks }) => {
-    const DEFAULT_THUMBNAIL = "icons/logo.svg";
-    if (!imageLinks || !imageLinks.thumbnail) {
-        return DEFAULT_THUMBNAIL;
-    }
-    return imageLinks.thumbnail.replace("http://", "https://");
-};
-
 //This url will look like website.com/books/<book-name>
 //Base url already contains website.com/books
 
 //Send the book name with a plus instead of spaces
 //For example, the request for "Atomic Habits" will look like
 //website.com/boooks/Atomic+Habits
+
+//returns an obj of 3 arrays, check code
+//if image doesnt exist, it will contain a string, then display the default image
 
 router.post('/:book_name', async (req, res) => {
     const book_name = req.params.book_name;
@@ -34,15 +28,14 @@ router.post('/:book_name', async (req, res) => {
         return utilsError.error(res, 500, 'Internal Server Error');
     }
 
-    book_titles = []
-    book_images = []
-    book_ids = []
+    let book_titles = []
+    let book_images = []
+    let book_ids = []
     for (let i  = 0; i < 10; i++) {
         let image;
         let title;
         let id;
         try{
-            console.log(data.data.items[i].volumeInfo);
             title = data.data.items[i].volumeInfo.title;
             
             if(!data.data.items[i].volumeInfo.imageLinks || !data.data.items[i].volumeInfo.imageLinks.thumbnail){

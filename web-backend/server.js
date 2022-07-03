@@ -14,7 +14,9 @@ const session = require('express-session');
 //routers
 const userRouter = require('./controllers/user');
 const homepageRouter = require('./controllers/homepage');
-const booksRouter = require('./controllers/searchBooks');
+const booksRouter = require('./controllers/searchBooks'); //This route is for getting search results of a string
+const bookRouter = require('./controllers/book'); //This route is to get info of a particular book
+const authorRouter = require('./controllers/searchBooksByAuthor'); //This route is for getting all (upto 10) books by the specified author
 
 //middlewares etc
 const initializePassport = require('./utils/passport-config');
@@ -89,6 +91,8 @@ app.use('/', apiRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/homepage', homepageRouter);
 apiRouter.use('/books', booksRouter);
+apiRouter.use('', bookRouter);
+apiRouter.use('/authors', authorRouter);
 
 app.listen(app.get('port'), () => {
   console.log('Started listening on port', app.get('port'));
