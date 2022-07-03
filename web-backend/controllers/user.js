@@ -13,9 +13,10 @@ const { checkAuthenticated } = require('../middlewares/auth');
 
 const router = express.Router({ mergeParams: true });
 
-router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local'), (req, res) => {
-  res.sendStatus(200);
-});
+router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', { failureMessage: false }),
+  (req, res) => {
+    res.status(200).send('User logged in successfully');
+  });
 
 //add welcome mailer, getUserProfile
 

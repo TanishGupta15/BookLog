@@ -10,7 +10,6 @@ const userSchema = yup.object().shape({
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(8).max(64).required(),
 });
 
 module.exports = { userSchema, loginSchema };
