@@ -1,0 +1,3 @@
+Not added API keys in any API as of now (for development). Do add API keys while deployment
+
+Google books api to get books on search needs to be fastened. Presently, very slow. Look for solutions.

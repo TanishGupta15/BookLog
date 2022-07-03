@@ -1,3 +1,5 @@
+//node-modules
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -7,14 +9,18 @@ const logger = require('morgan');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const session = require('express-session');
-//add favicon.ico in this directory
-//add env file, tableName, session_secret is just a random integer
 
+
+//routers
 const userRouter = require('./controllers/user');
 const homepageRouter = require('./controllers/homepage');
+const booksRouter = require('./controllers/searchBooks');
+
+//middlewares etc
 const initializePassport = require('./utils/passport-config');
 const secrets = require('./secrets');
 
+//add env file, tableName, session_secret is just a random integer
 initializePassport(passport, async (email) => {
   console.log('inside initializePassport callback');
   try {
@@ -79,13 +85,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const apiRouter = express.Router();
-apiRouter.use('/user', userRouter);
-
 app.use('/', apiRouter);
 apiRouter.use('/user', userRouter);
-
-app.use('/', apiRouter);
 apiRouter.use('/homepage', homepageRouter);
+apiRouter.use('/books', booksRouter);
 
 app.listen(app.get('port'), () => {
   console.log('Started listening on port', app.get('port'));
