@@ -2,7 +2,7 @@ const axios = require('axios');
 const express = require('express');
 const utilsError = require('../../utils/error');
 const secrets = require('../../secrets');
-
+const passport = require('passport');
 const router = express.Router();
 
 const schema = require('../../validations/userValidation');

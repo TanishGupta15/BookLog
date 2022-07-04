@@ -13,7 +13,7 @@ const session = require('express-session');
 //routers
 const userRouter = require('./controllers/user');
 const homepageRouter = require('./controllers/homepage');
-const booksRouter = require('./controllers/searchBooks'); //This route is for getting search results of a string
+const booksRouter = require('./controllers/bookControllers/searchBooks'); //This route is for getting search results of a string
 const bookRouter = require('./controllers/bookControllers/book'); //This route is to get info of a particular book
 const authorRouter = require('./controllers/bookControllers/searchBooksByAuthor'); //This route is for getting all (upto 10) books by the specified author
 const bookSettingsRouter = require('./controllers/bookControllers/bookSettings'); //This route is for setting book variables, like is_favorite, read, purchased, etc
