@@ -23,6 +23,7 @@ if (process.env.AWSAccessKeyId === undefined) {
   const myAWSAccessKeyId = process.env.AWSAccessKeyId;
   const myAWSSecretKey = process.env.AWSSecretKey;
   const awsRegion = process.env.region;
+  const endpoint = new AWS.Endpoint('https://email.ap-south-1.amazonaws.com');
   const { tableName, client_id, client_secret, google_books_api } = process.env;
 
   const dynamoDB = new AWS.DynamoDB.DocumentClient({
@@ -35,6 +36,7 @@ if (process.env.AWSAccessKeyId === undefined) {
     AWSAcccessKeyId: myAWSAccessKeyId,
     AWSSecretKey: myAWSSecretKey,
     awsRegion,
+    endpoint,
     tableName,
     dynamoDB,
     client_id,

@@ -1,15 +1,24 @@
 // Controller for users
+
+//required modules
 const express = require('express');
 const crypto = require('crypto');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
+//modules self writtem
 const secrets = require('../secrets');
 const utilsError = require('../utils/error');
 
+//middlewares
 const schema = require('../validations/userValidation');
 const validation = require('../middlewares/validationMiddleware');
 const { checkAuthenticated } = require('../middlewares/auth');
+
+//mailers 
+const welcomeMailer = require('../mailers/welcome');
+const forgotPasswordMailer = require('../mailers/mail_forgotPassword');
+
 
 const router = express.Router({ mergeParams: true });
 
@@ -17,8 +26,6 @@ router.post('/login', validation.validate(schema.loginSchema), passport.authenti
   (req, res) => {
     res.status(200).send('User logged in successfully');
   });
-
-//add welcome mailer, getUserProfile
 
 async function addUser(res, user) {
 
