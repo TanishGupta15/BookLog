@@ -7,3 +7,5 @@ We can also add an AMAZON Affiliator link to each of the book
 https://github.com/googleapis/google-api-nodejs-client#oauth2-client
 
 TODO: Author information, like image, birth, death (look for API)
+
+After Google Oauth successful, redirect to a registration page, where he can set password for himself etc
