@@ -10,11 +10,20 @@ if (process.env.AWSAccessKeyId === undefined) {
   if (process.env.region === undefined) {
     throw new Error('Region needed');
   }
+  if(process.env.client_id === undefined) {
+    throw new Error('ClientId needed');
+  }
+  if(process.env.client_secret === undefined) {
+    throw new Error('ClientSecret needed');
+  }
+  if(process.env.google_books_api === undefined) {
+    throw new Error('GoogleBooks API needed');
+  }
 
   const myAWSAccessKeyId = process.env.AWSAccessKeyId;
   const myAWSSecretKey = process.env.AWSSecretKey;
   const awsRegion = process.env.region;
-  const { tableName } = process.env;
+  const { tableName, client_id, client_secret, google_books_api } = process.env;
 
   const dynamoDB = new AWS.DynamoDB.DocumentClient({
     region: awsRegion,
@@ -27,5 +36,8 @@ if (process.env.AWSAccessKeyId === undefined) {
     AWSSecretKey: myAWSSecretKey,
     awsRegion,
     tableName,
-    dynamoDB
+    dynamoDB,
+    client_id,
+    client_secret,
+    google_books_api,
   };

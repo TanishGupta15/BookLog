@@ -3,3 +3,5 @@ Not added API keys in any API as of now (for development). Do add API keys while
 Google books api to get books on search needs to be fastened. Presently, very slow. Look for solutions.
 
 We can also add an AMAZON Affiliator link to each of the book
+
+https://github.com/googleapis/google-api-nodejs-client#oauth2-client

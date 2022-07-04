@@ -10,7 +10,6 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const session = require('express-session');
 
-
 //routers
 const userRouter = require('./controllers/user');
 const homepageRouter = require('./controllers/homepage');
@@ -97,4 +96,3 @@ apiRouter.use('/authors', authorRouter);
 app.listen(app.get('port'), () => {
   console.log('Started listening on port', app.get('port'));
 });
-
