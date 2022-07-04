@@ -33,19 +33,19 @@ google.options({auth: oauth2Client});
  * Open an http server to accept the oauth callback. In this simple example, the only request to our webserver is to /callback?code=<code>
  */
 async function authenticate(scopes) {
-  // console.log("Inside authenticate");
+
   return new Promise((resolve, reject) => {
     // grab the url that will be used for authorization
     const authorizeUrl = oauth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: scopes.join(' '),
     });
-    console.log("Generated authorization url: " + authorizeUrl);
+
     const server = http
       .createServer(async (req, res) => {
-        // console.log("creating server");
+
         try {
-          // console.log(req);
+
           if (req.url.indexOf('/oauth2callback') > -1) {
             const qs = new url.URL(req.url, 'http://localhost:3001')
               .searchParams;
@@ -56,7 +56,6 @@ async function authenticate(scopes) {
             oauth2Client.credentials = tokens; // eslint-disable-line require-atomic-updates
             resolve(oauth2Client);
             console.log('Done');
-            // return tokens;
           }
         } catch (e) {
           reject(e);
@@ -75,13 +74,14 @@ async function authenticate(scopes) {
 }
 
 async function runSample(client) {
-  // const encodedParams = new URLSearchParams();
-  // encodedParams.append("shelf", "0");
-  // encodedParams.append("accessToken", client.credentials.access_token);
-
+  
   const options = {
     method: 'GET',
-    url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves?key=${secrets.google_books_api}&Authorization=${client.credentials.access_token}`,
+    url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves?key=${secrets.google_books_api}`,
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${client.credentials.access_token}`,
+    },
   };
 
   axios.request(options).then(function (response) {
