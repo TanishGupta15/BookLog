@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 //modules self writtem
 const secrets = require('../secrets');
 const utilsError = require('../utils/error');
+const generateOTP = require('../utils/generateOTP');
 
 //middlewares
 const schema = require('../validations/userValidation');
