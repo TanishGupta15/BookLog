@@ -67,6 +67,9 @@ app.use(
 //   };
 //   app.use(cors.cors(corsOption));
 // }
+
+//TODO: look for cookies, how to set, 
+// Try removing some boiler plate code, and understanding it
 app.use(cors({
   origin: ['http://localhost:3000'],
   credentials: true,
@@ -75,7 +78,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
-app.use(session({ secret: 'SECRET' }));
+app.use(session({
+   secret: 'SECRET',
+   resave: false,
+   saveUninitialized: true,
+   cookie: { secure: true }
+  }));
 app.use(passport.initialize());
 // app.use(
 //   cookieSession({
