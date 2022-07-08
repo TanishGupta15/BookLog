@@ -61,8 +61,7 @@ router.post('/:book_name', async (req, res) => {
         images: book_images,
         ids: book_ids
     }
-    res.send(200);
-    return obj;
+  res.status(200).send(data);
 });
 
 module.exports = router;
@@ -97,7 +96,7 @@ module.exports = router;
   ]
 }
 
-    data.data.items[0] looks like this - 
+  data.data.items[0] looks like this - 
 
     {
   kind: 'books#volume',

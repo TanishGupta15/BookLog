@@ -44,7 +44,8 @@ router.post('/:author', async (req, res) => {
             ids: book_ids
         }
         
-        res.send(200);
+        res.status(200);
+        // res.status(200).send(obj);
         return obj;
         
     }catch(err){

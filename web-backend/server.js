@@ -16,8 +16,9 @@ const homepageRouter = require('./controllers/homepage');
 const booksRouter = require('./controllers/bookControllers/searchBooks'); //This route is for getting search results of a string
 const bookRouter = require('./controllers/bookControllers/book'); //This route is to get info of a particular book
 const authorRouter = require('./controllers/bookControllers/searchBooksByAuthor'); //This route is for getting all (upto 10) books by the specified author
+const genreRouter = require('./controllers/bookControllers/searchBookByGenre'); //This route is for getting all (upto 10) books by the specified Genre
 const bookSettingsRouter = require('./controllers/bookControllers/bookSettings'); //This route is for setting book variables, like is_favorite, read, purchased, etc
-
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 //middlewares etc
 const initializePassport = require('./utils/passport-config');
 const secrets = require('./secrets');
@@ -79,10 +80,10 @@ app.use(bodyParser.json());
 // app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
 app.use(session({
-   secret: 'SECRET',
-   resave: false,
-   saveUninitialized: true,
-   cookie: { secure: true }
+  secret: 'SECRET',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
   }));
 app.use(passport.initialize());
 // app.use(
@@ -100,6 +101,7 @@ apiRouter.use('/user', userRouter);
 apiRouter.use('/homepage', homepageRouter);
 apiRouter.use('/books', booksRouter);
 apiRouter.use('', bookRouter);
+apiRouter.use('/genres', genreRouter);
 apiRouter.use('/authors', authorRouter);
 apiRouter.use('', bookSettingsRouter);
 
