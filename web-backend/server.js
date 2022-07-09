@@ -14,11 +14,11 @@ const session = require('express-session');
 const httpRouter = require('./httpRoutes');
 
 // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+
 //middlewares etc
 const initializePassport = require('./utils/passport-config');
 const secrets = require('./secrets');
 
-//add env file, tableName, session_secret is just a random integer
 initializePassport(passport, async (email) => {
   console.log('inside initializePassport callback');
   try {

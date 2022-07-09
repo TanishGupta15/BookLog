@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
 const utilsError = require('../../utils/error');
+const bookProcess = require('./bookProcess');
 
 const router = express.Router();
 
@@ -27,41 +28,8 @@ router.post('/:book_name', async (req, res) => {
         console.log(err);
         return utilsError.error(res, 500, 'Internal Server Error');
     }
-
-    let book_titles = []
-    let book_images = []
-    let book_ids = []
-    for (let i  = 0; i < 10; i++) {
-        let image;
-        let title;
-        let id;
-        try{
-            title = data.data.items[i].volumeInfo.title;
-            
-            if(!data.data.items[i].volumeInfo.imageLinks || !data.data.items[i].volumeInfo.imageLinks.thumbnail){
-                image = "icons/logo.svg";
-            }else{
-                image = await axios.get(data.data.items[i].volumeInfo.imageLinks.thumbnail);
-            }
-    
-            id = data.data.items[i].id;
-        }
-        catch(err){
-            console.log(err);
-            continue;
-        }
-
-        book_titles.push(title);
-        book_images.push(image);
-        book_ids.push(id);
-    }
-
-    let obj = {
-        titles: book_titles,
-        images: book_images,
-        ids: book_ids
-    }
-  res.status(200).send(data);
+    const bookItems = data.data.items;
+    bookProcess.booksProcess(res, bookItems);
 });
 
 module.exports = router;

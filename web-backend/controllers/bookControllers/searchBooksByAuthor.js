@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
 const utilsError = require('../../utils/error');
+const bookProcess = require('./bookProcess');
 
 const router = express.Router();
 
@@ -16,37 +17,9 @@ router.post('/:author', async (req, res) => {
     let books;
     try {
         books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:"${author}"`);
-        console.log("Fetched books!");
+
         let bookItems = books.data.items;
-        let book_titles = [];
-        let book_images = [];
-        let book_ids = [];
-        for (let i = 0; i < Math.min(books.data.totalItems, 10); i++) {
-            console.log(bookItems[i]);
-            let image;
-            let title = bookItems[i].volumeInfo.title;
-            let id = bookItems[i].id;
-            
-            if(!bookItems[i].volumeInfo.imageLinks || !bookItems[i].volumeInfo.imageLinks.thumbnail){
-                image = "icons/logo.svg";
-            }else{
-                image = await axios.get(bookItems[i].volumeInfo.imageLinks.thumbnail);
-            }
-
-            book_titles.push(title);
-            book_images.push(image);
-            book_ids.push(id);
-        }
-
-        let obj = {
-            titles: book_titles,
-            images: book_images,
-            ids: book_ids
-        }
-        
-        res.status(200);
-        // res.status(200).send(obj);
-        return obj;
+        bookProcess.booksProcess(res, bookItems);
         
     }catch(err){
         console.log(err);
