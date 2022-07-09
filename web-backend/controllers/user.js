@@ -1,52 +1,51 @@
 // Controller for users
 
-//required modules
+// required modules
 const express = require('express');
-const crypto = require('crypto');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 
-//modules self writtem
+// modules self writtem
 const secrets = require('../secrets');
 const utilsError = require('../utils/error');
 const generateOTP = require('../utils/generateOTP');
 
-//middlewares
+// middlewares
 const schema = require('../validations/userValidation');
 const validation = require('../middlewares/validationMiddleware');
-const { checkAuthenticated } = require('../middlewares/auth');
+const {checkAuthenticated} = require('../middlewares/auth');
 
-//mailers 
+// mailers
 const welcomeMailer = require('../mailers/welcome');
 const forgotPasswordMailer = require('../mailers/mail_forgotPassword');
 
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router({mergeParams: true});
 
 
 function getUserProfile(user) {
   return {
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email
-  }
+    email: user.email,
+  };
 }
 
 async function addUser(res, user) {
-  
   user.reg_time = new Date().toString();
-  
+
   user.password = await bcrypt.hash(user.password, 10);
-  
+
   const email = user.email;
   const addParams = {
     TableName: secrets.tableName,
     Item: user,
-    ConditionExpression: 'attribute_not_exists(email)',
+    ConditionExpression: `attribute_not_exists(${email})`,
+    // This condition is already checked so doesnt matter
   };
   try {
     await secrets.dynamoDB.put(addParams).promise();
-    
+
     // await welcomeMailer.sendMail(
     //   user.email,
     //   `${user.first_name} ${user.last_name}`,
@@ -65,9 +64,9 @@ async function addUser(res, user) {
 async function updatePassword(pass, email, res) {
   if (!pass || pass.length < 8) {
     return utilsError.error(
-      res,
-      400,
-      'Please enter password with minimum 8 characters',
+        res,
+        400,
+        'Please enter password with minimum 8 characters',
     );
   }
 
@@ -95,15 +94,14 @@ async function updatePassword(pass, email, res) {
 }
 
 
-router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', { failureMessage: false }),
-  (req, res) => {
-    res.status(200).send('User logged in successfully');
-  });
+router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', {failureMessage: false}),
+    (req, res) => {
+      res.status(200).send('User logged in successfully');
+    });
 
 router.post('/register', validation.validate(schema.userSchema), async (req, res) => {
-  
-  const { confirmPassword, ...user } = req.body;
-  
+  const {confirmPassword, ...user} = req.body;
+
   const queryParams = {
     TableName: secrets.tableName,
     KeyConditionExpression: 'email = :value',
@@ -111,7 +109,7 @@ router.post('/register', validation.validate(schema.userSchema), async (req, res
       ':value': user.email,
     },
   };
-  
+
   let data;
   try {
     data = await secrets.dynamoDB.query(queryParams).promise();
@@ -121,10 +119,10 @@ router.post('/register', validation.validate(schema.userSchema), async (req, res
   }
   if (data.Items.length !== 0) {
     return utilsError.error(
-      res,
-      400,
-      'Member with Email Address already exists',
-    )
+        res,
+        400,
+        'Member with Email Address already exists',
+    );
   }
   return addUser(res, user);
 });
@@ -142,7 +140,7 @@ router.post('/forgotPassword', async (req, res) => {
     return utilsError.error(res, 400, 'Please enter Email Address');
   }
 
-  const { email } = user;
+  const {email} = user;
 
   const queryParams = {
     TableName: secret.tableName,
@@ -212,16 +210,16 @@ router.post('/forgotPassword', async (req, res) => {
 });
 
 router.post('/changePassword', checkAuthenticated, async (req, res) => {
-  const { email } = req.user;
+  const {email} = req.user;
   if (!email) {
     return utilsError.error(
-      res,
-      400,
-      'Please enter the email address whose password needs to be changed!',
+        res,
+        400,
+        'Please enter the email address whose password needs to be changed!',
     );
   }
 
-  const { oldPassword } = req.body;
+  const {oldPassword} = req.body;
   if (!oldPassword) {
     return utilsError.error(res, 400, 'Please enter your Old Password!');
   }

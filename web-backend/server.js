@@ -1,4 +1,4 @@
-//node-modules
+// node-modules
 
 const express = require('express');
 const cors = require('cors');
@@ -10,12 +10,12 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const session = require('express-session');
 
-//routers
+// routers
 const httpRouter = require('./httpRoutes');
 
 // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 
-//middlewares etc
+// middlewares etc
 const initializePassport = require('./utils/passport-config');
 const secrets = require('./secrets');
 
@@ -45,11 +45,11 @@ const app = express();
 app.set('port', process.env.PORT || 3001);
 app.use(helmet());
 app.use(
-  helmet.hsts({
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true,
-  }),
+    helmet.hsts({
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    }),
 );
 
 // if (process.env.NODE_ENV === 'production') {
@@ -64,13 +64,13 @@ app.use(
 //   app.use(cors.cors(corsOption));
 // }
 
-//TODO: look for cookies, how to set, 
+// TODO: look for cookies, how to set,
 // Try removing some boiler plate code, and understanding it
 app.use(cors({
   origin: ['http://localhost:3000'],
   credentials: true,
 }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 // app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
@@ -78,8 +78,8 @@ app.use(session({
   secret: 'SECRET',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
-  }));
+  cookie: {secure: true},
+}));
 app.use(passport.initialize());
 // app.use(
 //   cookieSession({

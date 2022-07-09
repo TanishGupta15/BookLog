@@ -15,18 +15,20 @@ async function sendMail(email, otp) {
       ToAddresses: [email],
     },
     Message: {
-      Body: {
-        Html: {
-          Data:
-            'Hey! <br/><br/>'
-            + `The OTP for completing your password reset process is: <b>${otp}</b>.`
-            + 'Hope you have a great reading experience! :) <br/><br/>Regards,<br/>Team BookLog',
-        },
-      },
-      Subject: {
-        Data: 'OTP for BookLog Password Reset',
-      },
+      // Body: {
+      //   Html: {
+      //     Data:
+      //       'Hey! <br/><br/>' +
+      //       `The OTP for completing your password reset process is:
+      //          <b>${otp}</b>.` +
+      //       'Hope you have a great reading experience! :)
+      //         <br/><br/>Regards,<br/>Team BookLog',
+      //   },
     },
+    Subject: {
+      Data: 'OTP for BookLog Password Reset',
+    },
+    // },
     Source: 'BookLog Password Reset <passwordreset@noreply.booklog.com>',
   };
 
