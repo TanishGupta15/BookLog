@@ -10,7 +10,6 @@ const router = express.Router();
 //This url will look like: website.com/<book-id>
 
 router.post('/:id', async (req, res) => {
-
     const id = req.params.id;
     let book;
     try {
@@ -38,7 +37,7 @@ router.post('/:id', async (req, res) => {
             maturityRating: bookVolume.maturityRating,
             language: bookVolume.language,
         };
-        res.send(obj);
+        res.status(200).send(obj);
     }catch(err) {
         console.log(err);
         return utilsError.error(res, 500, 'Internal Server Error');

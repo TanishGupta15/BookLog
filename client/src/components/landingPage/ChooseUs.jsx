@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Stack, Text, Heading, Box, useColorModeValue } from '@chakra-ui/react';
-import HeadingComponent from '../Custom Components/HeadingComponent';
+import {
+  Stack, Text, Heading, Box, useColorModeValue,
+} from '@chakra-ui/react';
+import HeadingComponent from '../Custom Components/HeadingComponent.jsx';
 
 const useFetch = (url) => {
   const [quoteData, setQuoteData] = useState({});
@@ -13,7 +15,7 @@ const useFetch = (url) => {
         setQuoteData(await response.data[0]);
         setLoading(false);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
     fetchData();
@@ -23,41 +25,41 @@ const useFetch = (url) => {
 
 function ChooseUs() {
   const { quoteData, loading } = useFetch(
-    'http://localhost:3001/homepage/quote'
+    'http://localhost:3001/homepage/quote',
   );
   const bgColor = useColorModeValue('gray.100', 'gray.800');
 
   return (
-    <Box mt={20} maxW={'90%'} mx="auto">
-      <HeadingComponent HeadingText={'Why Booklog'} />
+    <Box mt={20} maxW="90%" mx="auto">
+      <HeadingComponent HeadingText="Why Booklog" />
       <Stack
         direction={{ base: 'column', lg: 'row' }}
-        alignItems={'baseline'}
+        alignItems="baseline"
         mx="auto"
         justify={{ base: 'start', lg: 'space-between' }}
       >
         <Stack direction={{ base: 'column', sm: 'row' }}>
-          <Stack w={'full'} maxW={'400px'} pr={4}>
+          <Stack w="full" maxW="400px" pr={4}>
             <Heading
               fontSize={{ base: 'xl', lg: 'lg', xl: 'xl' }}
               className="heading-section"
             >
-              <Text as={'span'}>Deciding what to read next?</Text>
+              <Text as="span">Deciding what to read next?</Text>
             </Heading>
-            <Text fontWeight={600} color={'gray.500'}>
+            <Text fontWeight={600} color="gray.500">
               You’re in the right place. Tell us what titles or genres you’ve
               enjoyed in the past, and we’ll give you surprisingly insightful
               recommendations.
             </Text>
           </Stack>
-          <Stack w={'full'} maxW={'400px'} pr={5} py={5}>
+          <Stack w="full" maxW="400px" pr={5} py={5}>
             <Heading
               fontSize={{ base: 'xl', lg: 'lg', xl: 'xl' }}
               className="heading-section"
             >
-              <Text as={'span'}>What are your friends reading?</Text>
+              <Text as="span">What are your friends reading?</Text>
             </Heading>
-            <Text fontWeight={600} color={'gray.500'} mb={4}>
+            <Text fontWeight={600} color="gray.500" mb={4}>
               Chances are your friends are discussing their favorite (and least
               favorite) here.
             </Text>
@@ -65,23 +67,25 @@ function ChooseUs() {
         </Stack>
 
         <Box
-          w={'full'}
-          maxW={'270px'}
+          w="full"
+          maxW="270px"
           p={6}
-          textAlign={'center'}
+          textAlign="center"
           bg={bgColor}
-          boxShadow={'xl'}
-          rounded={'lg'}
+          boxShadow="xl"
+          rounded="lg"
         >
-          <Text fontWeight={600} color={'gray.500'} mb={4}>
+          <Text fontWeight={600} color="gray.500" mb={4}>
             {loading ? '...' : quoteData.q}
           </Text>
           <Text
-            textAlign={'center'}
+            textAlign="center"
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}
           >
-            ~ {loading ? 'author' : quoteData.a}
+            ~
+            {' '}
+            {loading ? 'author' : quoteData.a}
           </Text>
         </Box>
       </Stack>

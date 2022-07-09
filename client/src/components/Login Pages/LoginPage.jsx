@@ -1,4 +1,4 @@
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import {
   Box,
   Stack,
@@ -35,8 +35,8 @@ function Login() {
     onSubmit: (values, actions) => {
       axios
         .post('http://localhost:3001/user/login', values)
-        .then((res) => {
-          console.log(res.data.message);
+        .then(() => {
+          // console.log(res.data.message);
           actions.resetForm();
           setShow(false);
         })

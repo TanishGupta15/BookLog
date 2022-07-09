@@ -1,29 +1,28 @@
-import { Box } from "@chakra-ui/react";
-import { Swiper, SwiperSlide } from "swiper/react";
+/* eslint-disable import/no-unresolved */
+import { Box } from '@chakra-ui/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import HeadingComponent from '../Custom Components/HeadingComponent'
-import CardComponent from "../Custom Components/CardComponent";
-
+import HeadingComponent from '../Custom Components/HeadingComponent.jsx';
+import CardComponent from '../Custom Components/CardComponent.jsx';
 
 function LeaderBoard({ USER }) {
-
   return (
-    <Box maxW={'90%'} mx="auto" mt={20} mb={10}>
-      <HeadingComponent HeadingText={'Leader Board'} />
+    <Box maxW="90%" mx="auto" mt={20} mb={10}>
+      <HeadingComponent HeadingText="Leader Board" />
       <Box>
         <Swiper
           style={{
-            "--swiper-navigation-color": "#ffab24",
-            "--swiper-pagination-color": "#ffab24",
+            '--swiper-navigation-color': '#ffab24',
+            '--swiper-pagination-color': '#ffab24',
           }}
-          navigation={true}
+          navigation
           spaceBetween={20}
-          rewind={true}
+          rewind
           pagination={{
             dynamicBullets: true,
             clickable: true,
@@ -48,17 +47,15 @@ function LeaderBoard({ USER }) {
           modules={[Pagination, Navigation, Autoplay]}
           className="mySwiper"
         >
-          {USER.map((user) => {
-            return (
-              <SwiperSlide key={user.id}>
-                <CardComponent id={ user.id } name={user.name} image={user.image} />
-              </SwiperSlide>
-            )
-          })}
+          {USER.map((user) => (
+            <SwiperSlide key={user.id}>
+              <CardComponent id={user.id} name={user.name} image={user.image} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
     </Box>
-  )
+  );
 }
 
-export default LeaderBoard
+export default LeaderBoard;

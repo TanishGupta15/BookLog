@@ -10,39 +10,31 @@ const router = express.Router();
 // website.com/genres/genre-name
 // example: website.com/genres/fiction
 
+// TODO -> add fields option to get better performace
 router.post('/:genre', async (req, res) => {
   const genre = req.params.genre;
-  let books;
   try {
-    books = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:"${genre}"&maxResults=10`);
-    console.log("Fetching books!");
-    let bookItems = books.data.items;
-    let book_titles = [];
-    let book_images = [];
-    let book_ids = [];
-    for (let i = 0; i < 10; i++) {
-      let image;
-      let title = bookItems[i].volumeInfo.title;
-      let id = bookItems[i].id;
+    const books = await axios.
+      get(`https://www.googleapis.com/books/v1/volumes?q=subject:"${genre}"&maxResults=15&orderBy=newest`);
+    const bookItems = books.data.items;
+    const book_ids = [];
+    const book_titles = [];
+    const book_images = [];
 
-      if (!bookItems[i].volumeInfo.imageLinks || !bookItems[i].volumeInfo.imageLinks.thumbnail) {
-        image = "icons/logo.svg";
-      } else {
-        image = await axios.get(bookItems[i].volumeInfo.imageLinks.thumbnail);
+    bookItems.forEach(book => {
+      book_ids.push(book.id);
+      book_titles.push(book.volumeInfo.title);
+      {
+        (book.volumeInfo.imageLinks || book.volumeInfo.imageLinks.thumbnail) ?
+          book_images.push(book.volumeInfo.imageLinks.thumbnail) : book_images.push('icons/logo.svg');
       }
-      book_titles.push(title);
-      book_images.push(image);
-      book_ids.push(id);
-    }
-    let obj = {
+    })
+    const obj = {
       titles: book_titles,
       images: book_images,
       ids: book_ids
     }
-    // res.status(200).send(bookItems);
-    res.status(200);
-    console.log(obj);
-    // return obj;
+    res.status(200).send(obj);
   } catch (err) {
     console.log(err);
     return utilsError.error(res, 500, 'Internal Server Error');

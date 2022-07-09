@@ -39,18 +39,18 @@ function Register() {
       confirmPassword: '',
     },
     onSubmit: (values, actions) => {
-      console.log('submitted');
+      // console.log('submitted');
       axios
         .post('http://localhost:3001/user/register', values)
-        .then((res) => {
-          console.log(res.data.message);
+        .then(() => {
+          // console.log(res.data.message);
           actions.resetForm();
           setShow(false);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           const errors = err.response.data.message;
-          console.log(errors);
+          // console.log(errors);
           const fields = Object.keys(errors);
           fields.forEach((field) => {
             formik.setFieldError(field, errors[field]);
@@ -156,8 +156,9 @@ function Register() {
               </FormControl>
               <FormControl
                 isInvalid={
-                  formik.errors.confirmPassword &&
-                  formik.touched.confirmPassword
+                  // eslint disable-next-line operator-linebreak
+                  // formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
                 }
               >
                 <InputGroup>

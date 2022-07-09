@@ -1,28 +1,28 @@
-export const Button={
+const Button = {
   // The styles all button have in common
   baseStyle: {
     fontWeight: 'bold',
-    textTransform:'none',
+    textTransform: 'none',
     borderRadius: '5px',
-    _hover:{
-      boxShadow:'md'
+    _hover: {
+      boxShadow: 'md',
     },
   },
   variants: {
     solid: {
-      backgroundColor:'primary',
+      backgroundColor: 'primary',
       color: 'secondary',
-      _hover:{
-        backgroundColor:'#f39c12'
+      _hover: {
+        backgroundColor: '#f39c12',
       },
     },
     outline: {
-      backgroundColor:'transparent',
+      backgroundColor: 'transparent',
       border: '2px solid',
       borderColor: 'primary',
       color: 'primary',
       transition: 'all 200ms ease',
-      _hover:{
+      _hover: {
         backgroundColor: 'primary',
         color: 'secondary',
       },
@@ -32,6 +32,7 @@ export const Button={
   defaultProps: {
     // size: 'md',
     // variant: 'solid',
-    colorScheme:'primary',
+    colorScheme: 'primary',
   },
-}
+};
+export default Button;

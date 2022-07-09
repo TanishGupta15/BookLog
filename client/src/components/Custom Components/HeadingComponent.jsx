@@ -1,16 +1,16 @@
-import { Text, Heading } from "@chakra-ui/react";
+import { Text, Heading } from '@chakra-ui/react';
 
-const HeadingComponent = ({HeadingText}) => {
+function HeadingComponent({ HeadingText }) {
   return (
     <Heading
       lineHeight={1.1}
       fontWeight={600}
       mb={10}
-      fontSize={{ base: '4xl', md: '5xl' }}>
-
+      fontSize={{ base: '4xl', md: '5xl' }}
+    >
       <Text
-        as={'span'}
-        position={'relative'}
+        as="span"
+        position="relative"
         _after={{
           content: "''",
           width: '95%',
@@ -20,12 +20,13 @@ const HeadingComponent = ({HeadingText}) => {
           right: -5,
           bg: '#ffab24',
           zIndex: -1,
-          borderRadius: '5px'
-        }} >
+          borderRadius: '5px',
+        }}
+      >
         {HeadingText}
       </Text>
     </Heading>
-  )
+  );
 }
 
-export default HeadingComponent
+export default HeadingComponent;

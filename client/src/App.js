@@ -1,10 +1,8 @@
-import MainComponent from "./components/MainComponent.jsx";
+import MainComponent from './components/MainComponent.jsx';
 
 function App() {
   return (
-    <>
-      <MainComponent />
-    </>
+    <MainComponent />
   );
 }
 

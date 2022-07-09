@@ -2,14 +2,15 @@ import {
   Routes,
   BrowserRouter as Router,
   Route,
-  Navigate
+  Navigate,
   // useNavigate
-} from "react-router-dom";
-import Home from "./HomeComponent";
-import GenresPage from "./landingPage/GenresPage";
-import Register from "./Login Pages/RegisterPage";
-import Login from "./Login Pages/LoginPage";
-import ForgotPassword from './Login Pages/ForgotPassword'
+} from 'react-router-dom';
+import Home from './HomeComponent.jsx';
+import GenresPage from './landingPage/GenresPage.jsx';
+import BookPage from './landingPage/BookPage.jsx';
+import Register from './Login Pages/RegisterPage.jsx';
+import Login from './Login Pages/LoginPage.jsx';
+import ForgotPassword from './Login Pages/ForgotPassword.jsx';
 
 function MainComponent() {
   return (
@@ -22,6 +23,7 @@ function MainComponent() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="genres/:genre" element={<GenresPage />} />
+          <Route path="books/:bookId" element={<BookPage />} />
         </Routes>
       </Router>
     </div>

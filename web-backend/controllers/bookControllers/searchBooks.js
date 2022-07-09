@@ -19,7 +19,7 @@ router.post('/:book_name', async (req, res) => {
     let data;
     try {
         data = await axios.get(
-            `https://www.googleapis.com/books/v1/volumes?q=${book_name}&maxResults=10`
+          `https://www.googleapis.com/books/v1/volumes?q=intitle:${book_name}&maxResults=10`
         );
         console.log(data.data.items[0]);
     }
