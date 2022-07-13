@@ -14,27 +14,27 @@ const {checkAuthenticated} = require('../../middlewares/auth');
 router.post('/:id/addFavorite',
     checkAuthenticated,
     async (req, res) => {
-        const id = req.params.id;
-        const email = req.user.email;
-        const accessToken = await bookUtils.getAccessToken(email, res);
-        
-        const options = {
-            method: 'POST',
-            url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${bookUtils.mapping["Favorites"]}/addVolume?volumeId=${id}&key=${secrets.googleBooksAPI}`,
-            headers: {
-              'content-type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`,
-            },
-        };
+      const id = req.params.id;
+      const email = req.user.email;
+      const accessToken = await bookUtils.getAccessToken(email, res);
 
-        axios.request(options).then((response) => {
-            console.log(response);
-          }).catch((error) => {
-            console.error(error);
-            return null;
-          });
-          res.sendStatus(200);
-});
+      const options = {
+        method: 'POST',
+        url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${bookUtils.mapping['Favorites']}/addVolume?volumeId=${id}&key=${secrets.googleBooksAPI}`,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      };
+
+      axios.request(options).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error);
+        return null;
+      });
+      res.sendStatus(200);
+    });
 
 
 module.exports = router;

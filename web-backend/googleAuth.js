@@ -21,7 +21,7 @@ const secrets = require('./secrets');
 const oauth2Client = new google.auth.OAuth2(
     secrets.clientID,
     secrets.clientSecret,
-    'http://localhost:3002/oauth2callback',
+    'http://localhost:3000/oauthcallback',
 );
 
 /**
@@ -51,7 +51,7 @@ module.exports.authenticate = async (scopes) => {
           try {
             if (req.url.indexOf('/oauth2callback') > -1) {
               console.log('YES');
-              const qs = new url.URL(req.url, 'http://localhost:3002')
+              const qs = new url.URL(req.url, 'http://localhost:3000')
                   .searchParams;
               res.end('Authentication successful! Please return to the console.');
               server.destroy();
@@ -64,7 +64,7 @@ module.exports.authenticate = async (scopes) => {
             reject(e);
           }
         })
-        .listen(process.env.PORT || 3002, () => {
+        .listen(process.env.PORT || 3000, () => {
         // open the browser to the authorize url to start the workflow
           opn(authorizeUrl, {wait: false}).then((cp) => cp.unref());
         });

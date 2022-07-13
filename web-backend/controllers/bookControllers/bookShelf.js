@@ -8,29 +8,27 @@ const secrets = require('../../secrets');
 
 const router = express.Router();
 
-//website.com/myBooks/favorites
+// website.com/myBooks/favorites
 router.get('/favorites', checkAuthenticated, async (req, res) => {
-    console.log("Here");
-    const email = req.user.email;
-    const accessToken = await bookUtils.getAccessToken(email, res);
-    const options = {
-        method: 'GET',
-        url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${bookUtils.mapping["Favorites"]}/volumes?key=${secrets.googleBooksAPI}`,
-        headers: {
-          'content-type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
-        },
-    };
+  const email = req.user.email;
+  const accessToken = await bookUtils.getAccessToken(email, res);
+  const options = {
+    method: 'GET',
+    url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${bookUtils.mapping['Favorites']}/volumes?key=${secrets.googleBooksAPI}`,
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
 
-    axios.request(options).then((response) => {
-        console.log(response.data.items);
-      }).catch((error) => {
-        console.error(error);
-        return null;
-      });
-      res.sendStatus(200);
+  axios.request(options).then((response) => {
+    console.log(response.data.items);
+  }).catch((error) => {
+    console.error(error);
+    return null;
+  });
+  res.sendStatus(200);
 });
-
 
 
 module.exports = router;
