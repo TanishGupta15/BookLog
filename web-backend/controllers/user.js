@@ -262,7 +262,7 @@ async function setCredentials(accessToken) {
 }
 
 
-router.post('/googleAuthRegister', (req, res) => {
+router.get('/googleAuthRegister', (req, res) => {
   const scopes = [
     'https://www.googleapis.com/auth/contacts.readonly',
     'https://www.googleapis.com/auth/user.emails.read',
