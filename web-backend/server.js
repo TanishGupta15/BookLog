@@ -77,7 +77,7 @@ app.use(session({
   secret: 'SECRET',
   resave: false,
   saveUninitialized: false,
-  // cookie: {secure: true},
+  cookie: {_expires : 60000000},
 }));
 //This is a bug in passport itself, while using cookie secure true, it doesnt save login session
 app.set('trust proxy', true);
