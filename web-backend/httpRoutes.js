@@ -18,6 +18,7 @@ const genreRouter = require('./controllers/bookControllers/searchBookByGenre');
 const bookSettingsRouter = require('./controllers/bookControllers/bookSettings');
 // This route is for setting book variables, like is_favorite, read, purchased, etc
 
+const myBooksRouter = require('./controllers/bookControllers/bookShelf');
 
 module.exports.router = (app) => {
   const apiRouter = express.Router();
@@ -29,4 +30,5 @@ module.exports.router = (app) => {
   apiRouter.use('/genres', genreRouter);
   apiRouter.use('/authors', authorRouter);
   apiRouter.use('', bookSettingsRouter);
+  apiRouter.use('/myBooks', myBooksRouter);
 };

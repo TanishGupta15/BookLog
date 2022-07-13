@@ -22,13 +22,14 @@ function initialize(passport, getUserByEmail) {
 
   passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser));
   passport.serializeUser((user, done) => {
-    done(null, user.email);
+    process.nextTick(() => {return done(null, user.email);} );
   });
+
   passport.deserializeUser(async (email, done) => {
     console.log('desearlise');
     try {
       const user = await getUserByEmail(email);
-      return done(null, user);
+      process.nextTick(() => {return done(null, user);});
     } catch (err) {
       return done(err, null);
     }

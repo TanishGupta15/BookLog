@@ -98,6 +98,7 @@ async function updatePassword(pass, email, res) {
 
 router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', {failureMessage: false}),
     (req, res) => {
+      // req.session.user = req.user;
       res.status(200).send('User logged in successfully');
     });
 

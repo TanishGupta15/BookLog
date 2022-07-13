@@ -16,7 +16,7 @@ const httpRouter = require('./httpRoutes');
 // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 
 // middlewares etc
-const initializePassport = require('./utils/passport-config');
+const initializePassport = require('./utils/passport-config.js');
 const secrets = require('./secrets');
 
 initializePassport(passport, async (email) => {
@@ -76,9 +76,11 @@ app.use(logger('dev'));
 app.use(session({
   secret: 'SECRET',
   resave: false,
-  saveUninitialized: true,
-  cookie: {secure: true},
+  saveUninitialized: false,
+  // cookie: {secure: true},
 }));
+//This is a bug in passport itself, while using cookie secure true, it doesnt save login session
+app.set('trust proxy', true);
 app.use(passport.initialize());
 // app.use(
 //   cookieSession({
@@ -88,7 +90,7 @@ app.use(passport.initialize());
 //   }),
 // );
 app.use(passport.session());
-
+app.use(passport.authenticate('session'));
 httpRouter.router(app);
 
 app.listen(app.get('port'), () => {
