@@ -274,8 +274,7 @@ router.get('/googleAuthRegister', (req, res) => {
   const tokens = googleOAuth.authenticate(scopes)
       .then((client) => {
         const email = setCredentials(client.credentials.access_token);
-        res.redirect(307, '/user/register');
-        // res.send(email);
+        res.send(200);
       })
       .catch(console.error);
 });
