@@ -19,9 +19,9 @@ const secrets = require('./secrets');
  * Create a new OAuth2 client with the configured keys.
  */
 const oauth2Client = new google.auth.OAuth2(
-    secrets.client_id,
-    secrets.client_secret,
-    'http://localhost:3001/oauth2callback',
+    secrets.clientID,
+    secrets.clientSecret,
+    'http://localhost:3002/oauth2callback',
 );
 
 /**
@@ -36,7 +36,8 @@ google.options({auth: oauth2Client});
  * Open an http server to accept the oauth callback.
  * In this simple example, the only request to our webserver is to /callback?code=<code>
  */
-async function authenticate(scopes) {
+
+module.exports.authenticate = async (scopes) => {
   return new Promise((resolve, reject) => {
     // grab the url that will be used for authorization
     const authorizeUrl = oauth2Client.generateAuthUrl({
@@ -46,9 +47,11 @@ async function authenticate(scopes) {
 
     const server = http
         .createServer(async (req, res) => {
+          console.log('req:', res);
           try {
             if (req.url.indexOf('/oauth2callback') > -1) {
-              const qs = new url.URL(req.url, 'http://localhost:3001')
+              console.log('YES');
+              const qs = new url.URL(req.url, 'http://localhost:3002')
                   .searchParams;
               res.end('Authentication successful! Please return to the console.');
               server.destroy();
@@ -56,13 +59,12 @@ async function authenticate(scopes) {
               console.log(tokens);
               oauth2Client.credentials = tokens;
               resolve(oauth2Client);
-              console.log('Done');
             }
           } catch (e) {
             reject(e);
           }
         })
-        .listen(3001, () => {
+        .listen(process.env.PORT || 3002, () => {
         // open the browser to the authorize url to start the workflow
           opn(authorizeUrl, {wait: false}).then((cp) => cp.unref());
         });
@@ -70,36 +72,9 @@ async function authenticate(scopes) {
       destroyer(server);
     } catch (err) {
       console.log('Error: ' + err);
+      return null;
     }
   });
-}
 
-async function runSample(client) {
-  const options = {
-    method: 'GET',
-    url: `https://www.googleapis.com/books/v1/mylibrary/bookshelves?key=${secrets.google_books_api}`,
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${client.credentials.access_token}`,
-    },
-  };
-
-  axios.request(options).then(function(response) {
-    console.log(response.data);
-  }).catch(function(error) {
-    console.error(error);
-  });
-}
-
-const scopes = [
-  'https://www.googleapis.com/auth/contacts.readonly',
-  'https://www.googleapis.com/auth/user.emails.read',
-  'profile',
-  'https://www.googleapis.com/auth/books',
-];
-
-authenticate(scopes)
-    .then((client) => {
-      runSample(client);
-    })
-    .catch(console.error);
+  return tokens;
+};

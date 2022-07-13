@@ -51,7 +51,6 @@ app.use(
       preload: true,
     }),
 );
-
 // if (process.env.NODE_ENV === 'production') {
 //   const corsOption = {
 //     origin: ['https://website_name.com',
@@ -67,7 +66,7 @@ app.use(
 // TODO: look for cookies, how to set,
 // Try removing some boiler plate code, and understanding it
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3001'],
   credentials: true,
 }));
 app.use(bodyParser.urlencoded({extended: true}));

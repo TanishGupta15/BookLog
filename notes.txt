@@ -13,3 +13,7 @@ After Google Oauth successful, redirect to a registration page, where he can set
 TODO -> remove process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0' this from server.js file.
 
 TODO -> Remove console logs
+
+TODO: Before making call to API, always check the expiration time of access token, using Date.now()
+
+TODO: Add state in Oauth?

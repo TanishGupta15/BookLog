@@ -4,11 +4,13 @@
 const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const axios = require('axios');
 
 // modules self writtem
 const secrets = require('../secrets');
 const utilsError = require('../utils/error');
 const generateOTP = require('../utils/generateOTP');
+const googleOAuth = require('../googleAuth');
 
 // middlewares
 const schema = require('../validations/userValidation');
@@ -231,5 +233,50 @@ router.post('/changePassword', checkAuthenticated, async (req, res) => {
   return updatePassword(req.body.newPassword, email, res);
 });
 
+// TODO: Register this user whole email is received, set it as placeholder and redirect to regiser page
+async function setCredentials(accessToken) {
+  const options = {
+    method: 'GET',
+    url: `https://people.googleapis.com/v1/people/me?personFields=emailAddresses`,
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
+  };
+
+  axios.request(options).then((response) => {
+    const emailAddresses = response.data.emailAddresses;
+    let email = '';
+    const i = 0;
+    while (i < emailAddresses.length) {
+      if (emailAddresses[i].value !== undefined) {
+        email = emailAddresses[i].value;
+        break;
+      }
+    }
+    return email;
+  }).catch((error) => {
+    console.error(error);
+    return null;
+  });
+}
+
+
+router.post('/googleAuthRegister', (req, res) => {
+  const scopes = [
+    'https://www.googleapis.com/auth/contacts.readonly',
+    'https://www.googleapis.com/auth/user.emails.read',
+    'profile',
+    // 'https://www.googleapis.com/auth/userinfo.profile'
+    'https://www.googleapis.com/auth/books',
+  ];
+  const tokens = googleOAuth.authenticate(scopes)
+      .then((client) => {
+        const email = setCredentials(client.credentials.access_token);
+        res.redirect(307, '/user/register');
+        // res.send(email);
+      })
+      .catch(console.error);
+});
 
 module.exports = router;
