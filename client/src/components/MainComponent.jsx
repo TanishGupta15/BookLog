@@ -4,13 +4,14 @@ import {
   Route,
   Navigate,
   // useNavigate
-} from 'react-router-dom';
-import Home from './HomeComponent.jsx';
-import GenresPage from './landingPage/GenresPage.jsx';
-import BookPage from './landingPage/BookPage.jsx';
-import Register from './Login Pages/RegisterPage.jsx';
-import Login from './Login Pages/LoginPage.jsx';
-import ForgotPassword from './Login Pages/ForgotPassword.jsx';
+} from "react-router-dom";
+import Home from "./HomeComponent.jsx";
+import GenresPage from "./landingPage/GenresPage.jsx";
+import BookPage from "./landingPage/BookPage.jsx";
+import Register from "./Login Pages/RegisterPage.jsx";
+import Login from "./Login Pages/LoginPage.jsx";
+import ForgotPassword from "./Login Pages/ForgotPassword.jsx";
+import OuathCallBack from "./Custom Components/OuathCallBack.jsx";
 
 function MainComponent() {
   return (
@@ -24,6 +25,7 @@ function MainComponent() {
           <Route path="/forgot" element={<ForgotPassword />} />
           <Route path="genres/:genre" element={<GenresPage />} />
           <Route path="books/:bookId" element={<BookPage />} />
+          <Route path="/user/oauthcallback" element={<OuathCallBack />} />
         </Routes>
       </Router>
     </div>
