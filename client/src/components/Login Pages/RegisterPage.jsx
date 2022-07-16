@@ -41,7 +41,7 @@ function Register() {
     onSubmit: (values, actions) => {
       // console.log('submitted');
       axios
-        .post('http://localhost:3001/user/register', values)
+        .post(`${process.env.backendUrl}/user/register`, values)
         .then(() => {
           // console.log(res.data.message);
           actions.resetForm();

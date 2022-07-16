@@ -26,7 +26,7 @@ function initialize(passport, getUserByEmail) {
   passport.use(new GoogleStrategy({
     clientID: secrets.clientID,
     clientSecret: secrets.clientSecret,
-    callbackURL: 'http://localhost:3001/user/oauth2callback',
+    callbackURL: `${process.env.url}/user/oauth2callback`,
     scope: ['email', 'profile'],
     passReqToCallback: true,
   },
@@ -45,7 +45,6 @@ function initialize(passport, getUserByEmail) {
     user.dp = profile.photos[0].value;
     const email = user.email;
     const alreadyExists = await userUtils.checkAlreadyExists(user);
-    console.log(alreadyExists);
     if (alreadyExists) return done(null, user);
 
     const addParams = {

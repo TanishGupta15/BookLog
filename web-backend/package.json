@@ -36,5 +36,8 @@
   "devDependencies": {
     "eslint": "^8.19.0",
     "eslint-config-google": "^0.14.0"
+  },
+  "engines": {
+    "node": "16.14.0"
   }
 }

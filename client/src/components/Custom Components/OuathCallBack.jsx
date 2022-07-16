@@ -3,7 +3,7 @@ import axios from "axios";
 
 const OuathCallBack = () => {
   axios
-    .get("http://localhost:3001/user/googleAuthRegister")
+    .get(`${process.env.backendUrl}/user/googleAuthRegister`)
     .then((res) => {
       console.log(res);
     })

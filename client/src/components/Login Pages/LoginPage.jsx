@@ -34,7 +34,7 @@ function Login() {
     },
     onSubmit: (values, actions) => {
       axios
-        .post('http://localhost:3001/user/login', values)
+        .post(`{process.env.backendUrl}/user/login`, values)
         .then(() => {
           // console.log(res.data.message);
           actions.resetForm();

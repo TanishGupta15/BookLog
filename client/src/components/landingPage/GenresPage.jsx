@@ -26,7 +26,7 @@ function GenresPage() {
   useEffect(() => {
     async function get() {
       try {
-        const books = await axios.post(`http://localhost:3001/genres/${genre}`);
+        const books = await axios.post(`${process.env.backendUrl}/genres/${genre}`);
         setBookId(books.data.ids);
         setBookTitles(books.data.titles);
         setBookImages(books.data.images);

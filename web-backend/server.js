@@ -64,7 +64,7 @@ app.use(
 // }
 
 app.use(cors({
-  origin: ['http://localhost:3001'],
+  origin: [process.env.url],
   credentials: true,
 }));
 app.use(bodyParser.urlencoded({extended: true}));

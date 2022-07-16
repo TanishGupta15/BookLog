@@ -25,7 +25,7 @@ const useFetch = (url) => {
 
 function ChooseUs() {
   const { quoteData, loading } = useFetch(
-    'http://localhost:3001/homepage/quote',
+    `${process.env.backendUrl}/homepage/quote`,
   );
   const bgColor = useColorModeValue('gray.100', 'gray.800');
 
