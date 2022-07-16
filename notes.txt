@@ -17,3 +17,5 @@ TODO -> Remove console logs
 TODO: Before making call to API, always check the expiration time of access token, using Date.now()
 
 TODO: Add state in Oauth?
+
+Note: Sign in and Sign up through Google, both requests are sent to /user/login/google

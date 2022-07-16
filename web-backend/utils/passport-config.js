@@ -44,7 +44,8 @@ function initialize(passport, getUserByEmail) {
     user.lastName = profile.name.familyName;
     user.dp = profile.photos[0].value;
     const email = user.email;
-    const alreadyExists = userUtils.checkAlreadyExists(user);
+    const alreadyExists = await userUtils.checkAlreadyExists(user);
+    console.log(alreadyExists);
     if (alreadyExists) return done(null, user);
 
     const addParams = {
