@@ -62,7 +62,6 @@ function GenresPage() {
         <Divider height={3} />
         <Grid templateColumns="repeat(7, 1fr)" gap={10} spacing={2} mt={5}>
           {bookImage ? bookImage.map((book, index) => (
-            // eslint-disable-next-line react/no-array-index-key
             <Link key={bookId[index]} to={`/books/${bookId[index]}`}>
               <BookCard bookImage={book} />
             </Link>

@@ -76,7 +76,7 @@ async function updatePassword(pass, email, res) {
   pass = await bcrypt.hash(pass, secrets.saltRounds);
 
   const refParams = {
-    TableName: secret.tableName,
+    TableName: secrets.tableName,
     Key: {
       email,
     },
@@ -119,7 +119,8 @@ async function checkAlreadyExists(user) {
 }
 
 
-router.post('/login', validation.validate(schema.loginSchema), passport.authenticate('local', {failureMessage: false}),
+router.post('/login', validation.validate(schema.loginSchema),
+  passport.authenticate('local', { failureMessage: false }),
     (req, res) => {
       // req.session.user = req.user;
       res.status(200).send('User logged in successfully');
