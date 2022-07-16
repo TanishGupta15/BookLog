@@ -63,15 +63,13 @@ app.use(
 //   app.use(cors.cors(corsOption));
 // }
 
-// TODO: look for cookies, how to set,
-// Try removing some boiler plate code, and understanding it
 app.use(cors({
   origin: ['http://localhost:3001'],
   credentials: true,
 }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-// app.use(favicon(`${__dirname}/favicon.ico`));
+app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
 app.use(session({
   secret: 'SECRET',
@@ -82,12 +80,16 @@ app.use(session({
 // This is a bug in passport itself, while using cookie secure true, it doesnt save login session
 app.set('trust proxy', true);
 app.use(passport.initialize());
+
+const cookieParams = {
+  secret: secrets.sessionSecret,
+  name: 'BookLog',
+  keys: ['a'],
+  maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
+};
+
 // app.use(
-//   cookieSession({
-//     secret: secrets.sessionSecret,
-//     name: 'BookLog',
-//     maxAge: 5 * 24 * 60 * 60 * 1000, // 5 days
-//   }),
+//   cookieSession(cookieParams),
 // );
 app.use(passport.session());
 app.use(passport.authenticate('session'));

@@ -1,5 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const bcrypt = require('bcrypt');
+const secrets = require('../secrets');
+const userUtils = require('./userUtils');
 
 function initialize(passport, getUserByEmail) {
   const authenticateUser = async (email, password, done) => {
@@ -19,6 +22,45 @@ function initialize(passport, getUserByEmail) {
       return done(e);
     }
   };
+
+  passport.use(new GoogleStrategy({
+    clientID: secrets.clientID,
+    clientSecret: secrets.clientSecret,
+    callbackURL: 'http://localhost:3001/user/oauth2callback',
+    scope: ['email', 'profile'],
+    passReqToCallback: true,
+  },
+  async function valid(request, accessToken, refreshToken, params, profile, done) {
+    const user = {};
+    user.email = profile.email;
+    user.password = null;
+    user.googleCreds = {
+      'access_token': accessToken,
+      'refresh_token': refreshToken,
+      'expires_in': params.expires_in,
+    };
+    user.reg_time = new Date().toString();
+    user.firstName = profile.name.givenName;
+    user.lastName = profile.name.familyName;
+    user.dp = profile.photos[0].value;
+    const email = user.email;
+    const alreadyExists = userUtils.checkAlreadyExists(user);
+    if (alreadyExists) return done(null, user);
+
+    const addParams = {
+      TableName: secrets.tableName,
+      Item: user,
+      ConditionExpression: `attribute_not_exists(email)`,
+      // This condition is already checked so doesnt matter
+    };
+    try {
+      await secrets.dynamoDB.put(addParams).promise();
+    } catch (err) {
+      return done(err);
+    }
+    return done(null, user);
+  },
+  ));
 
   passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser));
   passport.serializeUser((user, done) => {
