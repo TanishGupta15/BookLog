@@ -27,6 +27,7 @@ function GenresPage() {
     async function get() {
       try {
         const books = await axios.post(`${process.env.backendUrl}/genres/${genre}`);
+        console.log(books);
         setBookId(books.data.ids);
         setBookTitles(books.data.titles);
         setBookImages(books.data.images);

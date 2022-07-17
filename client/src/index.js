@@ -6,6 +6,7 @@ import theme from './chakraStyles/theme.js';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+console.log('Render');
 root.render(
   <ChakraProvider theme={theme}>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
