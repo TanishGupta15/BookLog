@@ -37,7 +37,7 @@ router.get('/login/google', passport.authenticate('google'));
 
 
 router.get('/oauth2callback',
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login', failureMessage: true }),
+    passport.authenticate('google', {failureRedirect: 'http://localhost:3000/login', failureMessage: true}),
     (req, res) => {
       res.redirect('http://localhost:3000/home');
     });
