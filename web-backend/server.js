@@ -13,7 +13,7 @@ const session = require('express-session');
 // routers
 const httpRouter = require('./httpRoutes');
 
-// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 
 // middlewares etc
 const initializePassport = require('./utils/passport-config.js');

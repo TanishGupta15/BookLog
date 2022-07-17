@@ -20,6 +20,7 @@ import {
   AiOutlineEyeInvisible as NoSee,
   AiOutlineMail as Mail,
 } from 'react-icons/ai';
+import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import IMG from '../../assets/images/bg.jpg';
@@ -49,6 +50,9 @@ function Login() {
         });
     },
   });
+  const googleLogin = () => {
+    window.location.href = 'http://localhost:3001/user/oauth2callback';
+  }
 
   return (
     <Box>
@@ -129,13 +133,31 @@ function Login() {
             <Button
               type="submit"
               mt={8}
-              w="full"
+              w="xs"
               _hover={{
                 boxShadow: 'lg',
               }}
             >
               Login
             </Button>
+            <Text color='gray.500' pt='1'>
+              or
+            </Text>
+            <Stack pt={1} align='center'>
+              <Button
+                w='xs'
+                variant='ghost'
+                bg='gray.100'
+                color='gray.600'
+                leftIcon={<GoogleIcon />}
+                _hover={{
+                  shadow: 'lg',
+                }}
+                onClick={googleLogin}
+              >
+                Sign Up with Google
+              </Button>
+            </Stack>
             <Stack pt={6}>
               <Text
                 align="center"
