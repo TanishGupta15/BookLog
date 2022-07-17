@@ -9,16 +9,23 @@ const useFetch = (url) => {
   const [quoteData, setQuoteData] = useState({});
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    if (sessionStorage.quote) {
+      setQuoteData(JSON.parse(sessionStorage.quote));
+      setLoading(false);
+    }
+    else {
     async function fetchData() {
       try {
-        const response = await axios.get(url);
-        setQuoteData(await response.data[0]);
+        const quote = await axios.get(url);
+        setQuoteData(await quote.data[0]);
         setLoading(false);
+        sessionStorage.setItem('quote', JSON.stringify(quote.data[0]));
       } catch (err) {
         // console.log(err);
       }
     }
     fetchData();
+    }
   }, []);
   return { quoteData, loading };
 };
@@ -83,9 +90,7 @@ function ChooseUs() {
             color={useColorModeValue('gray.700', 'gray.400')}
             px={3}
           >
-            ~
-            {' '}
-            {loading ? 'author' : quoteData.a}
+            {loading ? '' : quoteData.a}
           </Text>
         </Box>
       </Stack>
