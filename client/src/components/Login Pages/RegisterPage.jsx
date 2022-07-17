@@ -39,7 +39,7 @@ function Register() {
     },
     onSubmit: (values, actions) => {
       axios
-        .post(`${process.env.backendUrl}/user/register`, values)
+        .post(`https://booklog-backend.herokuapp.com/user/register`, values)
         .then(() => {
           actions.resetForm();
           setShow(false);
@@ -54,7 +54,7 @@ function Register() {
     },
   });
   const googleLogin = () => {
-    window.location.href = 'http://localhost:3001/user/oauth2callback';
+    window.location.href = `https://booklog-backend.herokuapp.com/user/login/google`;
   }
 
   return (

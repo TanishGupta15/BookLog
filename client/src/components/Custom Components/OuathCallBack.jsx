@@ -3,7 +3,7 @@ import axios from "axios";
 
 const OuathCallBack = () => {
   axios
-    .get(`${process.env.backendUrl}/user/googleAuthRegister`)
+    .get(`https://booklog-backend.herokuapp.com/user/googleAuthRegister`)
     .then((res) => {
       console.log(res);
     })

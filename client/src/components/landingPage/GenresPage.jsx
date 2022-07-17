@@ -26,7 +26,7 @@ function GenresPage() {
   useEffect(() => {
     async function get() {
       try {
-        const books = await axios.post(`${process.env.backendUrl}/genres/${genre}`);
+        const books = await axios.post(`https://booklog-backend.herokuapp.com/genres/${genre}`);
         console.log(books);
         setBookId(books.data.ids);
         setBookTitles(books.data.titles);
