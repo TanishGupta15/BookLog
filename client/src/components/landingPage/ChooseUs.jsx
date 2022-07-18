@@ -32,7 +32,7 @@ const useFetch = (url) => {
 
 function ChooseUs() {
   const { quoteData, loading } = useFetch(
-    `https://booklog-backend.herokuapp.com/homepage/quote`,
+    `http://localhost:3001/homepage/quote`,
   );
   const bgColor = useColorModeValue('gray.100', 'gray.800');
 

@@ -37,11 +37,22 @@ router.get('/login/google', passport.authenticate('google'));
 
 
 router.get('/oauth2callback',
-    passport.authenticate('google', {failureRedirect: `${process.env.corsUrl}/login`, failureMessage: true}),
+  passport.authenticate('google', { failureRedirect: "http://localhost:3000/login", failureMessage: true }),
     (req, res) => {
-      res.redirect(`${process.env.corsUrl}/home`);
+      res.redirect("http://localhost:3000/home");
     });
 
+router.get("/login/success", (req, res) => {
+  if (req.user) {
+    res.status(200).json({
+      error: false,
+      message: "Successfully Loged In",
+      user: req.user,
+    });
+  } else {
+    res.status(403).json({ error: true, message: "Not Authorized" });
+  }
+});
 
 router.post('/register', validation.validate(schema.userSchema), async (req, res) => {
   const {confirmPassword, ...user} = req.body;
