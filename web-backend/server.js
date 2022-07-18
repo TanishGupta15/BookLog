@@ -1,9 +1,8 @@
 // node-modules
-
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const passport = require('passport');
@@ -13,7 +12,7 @@ const session = require('express-session');
 // routers
 const httpRouter = require('./httpRoutes');
 
-// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 // middlewares etc
 const initializePassport = require('./utils/passport-config.js');
@@ -67,8 +66,10 @@ app.use(cors({
   origin: [process.env.corsUrl],
   credentials: true,
 }));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(logger('dev'));
 app.use(session({
