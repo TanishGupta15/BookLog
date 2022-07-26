@@ -36,7 +36,7 @@ function GenresPage() {
       }
     }
     get();
-  }, []);
+  }, [genre]);
 
   return (
     <>

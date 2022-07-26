@@ -14,9 +14,6 @@ import ReadMore from '../Custom Components/ReadMore.jsx';
 // TODO -> Add Amazon Buy Link to buy the buy using Amazon Search API
 // TODO -> Remove api from frontend and send Data as props.
 // TODO -> Description response comes as HTML. Fix it.
-// TODO -> Add Load more of description functionallity
-// TODO -> Add Download Pdf button or Send to Kindle
-// TODO -> Clean up the code too much messy now.
 function BookPage() {
   const { bookId } = useParams();
   const [bookData, setBookData] = useState('');

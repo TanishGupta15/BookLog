@@ -39,7 +39,7 @@ function Register() {
     },
     onSubmit: (values, actions) => {
       axios
-        .post(`https://booklog-backend.herokuapp.com/user/register`, values)
+        .post(`http://localhost:3001/user/register`, values)
         .then(() => {
           actions.resetForm();
           setShow(false);

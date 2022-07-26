@@ -5,6 +5,8 @@ function getUserProfile(user) {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    regTime: user.regTime,
+    dp: user.dp,
   };
 }
 
@@ -16,7 +18,7 @@ async function addUser(res, user) {
     user.password = await bcrypt.hash(user.password, 10);
   }
 
-  const email = user.email;
+  // const email = user.email;
   const addParams = {
     TableName: secrets.tableName,
     Item: user,
@@ -29,24 +31,19 @@ async function addUser(res, user) {
     //   user.email,
     //   `${user.first_name} ${user.last_name}`,
     // );
-
     return utilsError.error(res, 200, 'User added successfully');
   } catch (err) {
     if (err.statusCode >= 500) {
       return utilsError.error(res, 500, 'Please try again');
     }
-    console.log(err);
+    // console.log(err);
     return null;
   }
 }
 
 async function updatePassword(pass, email, res) {
   if (!pass || pass.length < 8) {
-    return utilsError.error(
-        res,
-        400,
-        'Please enter password with minimum 8 characters',
-    );
+    return utilsError.error(res, 400, 'Please enter password with minimum 8 characters');
   }
 
   pass = await bcrypt.hash(pass, secrets.saltRounds);
@@ -67,7 +64,7 @@ async function updatePassword(pass, email, res) {
   } catch (err) {
     return utilsError.error(res, 400, 'Invalid email address given');
   }
-  return res.json({
+  return res.status(200).json({
     message: 'Password reset successfully!',
   });
 }
@@ -90,7 +87,6 @@ async function checkAlreadyExists(user) {
   if (data.Items.length !== 0) {
     return true;
   }
-
   return false;
 }
 

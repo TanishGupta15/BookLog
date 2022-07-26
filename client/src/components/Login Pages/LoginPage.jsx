@@ -35,7 +35,7 @@ function Login() {
     },
     onSubmit: (values, actions) => {
       axios
-        .post(`https://booklog-backend.herokuapp.com/user/login`, values)
+        .post(`http://localhost:3000/user/login`, values)
         .then(() => {
           // console.log(res.data.message);
           actions.resetForm();
@@ -51,7 +51,7 @@ function Login() {
     },
   });
   const googleLogin = () => {
-    window.location.href = `https://booklog-backend.herokuapp.com/user/login/google`;
+    window.location.href = `http://localhost:3001/user/login/google`;
   }
 
   return (
@@ -155,7 +155,7 @@ function Login() {
                 }}
                 onClick={googleLogin}
               >
-                Sign Up with Google
+                Login Up with Google
               </Button>
             </Stack>
             <Stack pt={6}>

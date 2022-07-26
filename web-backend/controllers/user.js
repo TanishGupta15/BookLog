@@ -25,7 +25,7 @@ const {use} = require('passport');
 
 const router = express.Router({mergeParams: true});
 
-
+//TODO -> Add Error message in login route
 router.get('/login', validation.validate(schema.loginSchema),
     passport.authenticate('local', {failureMessage: false}),
     (req, res) => {
@@ -35,24 +35,13 @@ router.get('/login', validation.validate(schema.loginSchema),
 
 router.get('/login/google', passport.authenticate('google'));
 
+router.get("/profile")
 
 router.get('/oauth2callback',
   passport.authenticate('google', { failureRedirect: "http://localhost:3000/login", failureMessage: true }),
     (req, res) => {
       res.redirect("http://localhost:3000/home");
     });
-
-router.get("/login/success", (req, res) => {
-  if (req.user) {
-    res.status(200).json({
-      error: false,
-      message: "Successfully Loged In",
-      user: req.user,
-    });
-  } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
-  }
-});
 
 router.post('/register', validation.validate(schema.userSchema), async (req, res) => {
   const {confirmPassword, ...user} = req.body;
@@ -168,8 +157,15 @@ router.post('/changePassword', checkAuthenticated, async (req, res) => {
   if (!(await bcrypt.compare(oldPassword, req.user.password))) {
     return utilsError.error(res, 400, 'Old Password is incorrect!');
   }
+  return userUtils.updatePassword(req.body.newPassword, email, res);
+});
 
-  return UserUtils.updatePassword(req.body.newPassword, email, res);
+router.get('/logout', function (req, res) {
+  req.logout();
+  // if (err) { return next(err); }
+  // });
+  req.session.destroy();
+  res.redirect('http:localhost:3000/login');
 });
 
 

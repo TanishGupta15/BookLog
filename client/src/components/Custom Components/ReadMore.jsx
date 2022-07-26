@@ -9,7 +9,7 @@ function ReadMore({ text }) {
   return (
     <>
       {readMore ? text : text.substring(0, 300)}
-      {readMore ? <Text color="blue.500" onClick={handleClick}>...Read Less</Text>
+      {readMore ? <Text color="blue.500" onClick={handleClick}>Read Less</Text>
         : <Text color="blue.500" onClick={handleClick}>...Read More</Text>}
     </>
   );

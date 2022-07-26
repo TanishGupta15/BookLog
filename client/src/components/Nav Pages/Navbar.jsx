@@ -1,18 +1,27 @@
 import { NavLink, Link } from "react-router-dom";
-
 import { BsFillSunFill as SunIcon,
   BsFillMoonStarsFill as MoonIcon } from "react-icons/bs";
 import { SiBookstack } from "react-icons/si";
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 import { Box, Flex, HStack, Button, Stack,
-  useDisclosure, Text, Spacer, IconButton } from '@chakra-ui/react'
+  useDisclosure, Text, Spacer, IconButton, Avatar, Menu, MenuButton, MenuList, MenuItem
+} from '@chakra-ui/react'
 import { useColorMode } from "@chakra-ui/react";
+import { useContext } from "react";
+import { UserContext } from "../Login Pages/UserContext";
+import axios from "axios";
 // ---------------------- END OF IMPORTS -------------------------
 
 
 export const Navbar = () => {
-
+  const { user } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
+  const handleLogout = () => {
+    setUser(null);
+    window.location.reload();
+    axios.get("http://localhost:3001/user/logout")
+  }
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -77,20 +86,33 @@ export const Navbar = () => {
         {/* ---------------- Navmenu Login and signup buttons ----------- */}
         <HStack alignItems={'center'} justifyContent={'space-between'} spacing='3' ml={10}
           display={{ base: 'none', lg: 'flex' }}>
-          <Link to="/login">
-            <Button flex={1}>
-              Login
-            </Button>
-          </Link>
+          {user ?
+            <Menu>
+              <MenuButton>
+                <Avatar src={user.dp} size="md" border="2px solid yellow" />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>{user.firstName + " " + user.lastName}</MenuItem>
+                {/* <MenuItem> <></></MenuItem> */}
+                <hr />
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </MenuList>
 
-          <Link to="/register">
-            <Button variant='outline' flex={1}>
-              Sign Up
-            </Button>
-          </Link>
-
+            </Menu>
+            : <>
+              <Link to="/login">
+                <Button flex={1}>
+                  Login
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button variant='outline' flex={1}>
+                  Sign Up
+                </Button>
+              </Link>
+            </>}
           <Button onClick={() => toggleColorMode()} >
-          {colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
+            {colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
           </Button>
         </HStack>
       </Flex>
